@@ -1,78 +1,113 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Oracle.ManagedDataAccess.Client;
 
 namespace DoggyDaycare
 {
 
     internal class DatabaseConnection
     {
+        private System.Collections.Specialized.NameValueCollection appSettings = ConfigurationManager.AppSettings;
+        private string _connectionString;
 
-        private static readonly string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        
-        private static readonly string[] credentialFilePaths =
-            { Path.Combine(userProfilePath + "\\OneDrive - Munster Technological University", "OraCredentials", "OraCredentialsHOME"),
-              Path.Combine(userProfilePath + "\\OneDrive - Munster Technological University", "OraCredentials", "OraCredentialsMTU") };
-        
-        private string connectionString;
-
-        internal DatabaseConnection()
+        public DatabaseConnection()
         {
-            string tempConnString = TryCredentials(credentialFilePaths);
+            var connectionString = TryCredentials();
 
-            if (tempConnString.StartsWith("No valid file"))
+            if (string.IsNullOrEmpty(connectionString))
             {
-                Console.WriteLine(tempConnString);
-                throw new InvalidOperationException(tempConnString);
+                throw new InvalidOperationException("Failed to establish a database connection with any of the provided credentials.");
             }
 
-            SetConnectionString(tempConnString);
+            SetConnectionString(connectionString);
         }
 
-        private void SetConnectionString(string connectionString) 
+        private void SetConnectionString(string connectionString)
         {
-            this.connectionString = connectionString;
+            _connectionString = connectionString;
         }
-        
-        private string TryCredentials(string[] credentialFilePaths)
+
+        private string GetConnectionString()
         {
-            foreach (var path in credentialFilePaths)
+            string connectionString = _connectionString;
+            return connectionString;
+        }
+
+        private string TryCredentials()
+        {
+            try
             {
-                if (File.Exists(path))
-                {
-                    var tempConnString = File.ReadAllText(path);
+                string? encryptedConnectionString = appSettings["Home_Server_Encrypted_Credentials"];
+                var connectionString = Decryptor.Decrypt(encryptedConnectionString);
 
-                    try
+                using (OracleConnection connection = new OracleConnection(connectionString))
+                {
+                    connection.Open();
+                }
+
+                return connectionString;
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Oracle error: {ex.Message}\nTrying another connection string.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                try
+                {
+                    string? encryptedConnectionString = appSettings["MTU_Server_Encrypted_Credentials"];
+                    var connectionString = Decryptor.Decrypt(encryptedConnectionString);
+
+                    using (OracleConnection connection = new OracleConnection(connectionString))
                     {
-                        using (var conn = new OracleConnection(tempConnString))
-                        {
-                            conn.Open();
-                            return tempConnString;
-                        }
+                        connection.Open();
                     }
-                    catch (OracleException ex)
-                    {
-                        Console.WriteLine($"Oracle error: {ex.Message}");
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        Console.WriteLine("Access denied. Try running the app with appropriate permissions.");
-                    }
-                    catch (IOException ex)
-                    {
-                        Console.WriteLine($"I/O error: {ex.Message}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Unexpected error: {ex.Message}");
-                    }
+
+                    return connectionString;
+                }
+                catch (OracleException ex2)
+                {
+                    MessageBox.Show($"Oracle error: {ex2.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "";
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("I/O error occurred. Check logs for details.", "I/O Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "";
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("An unexpected error occurred. Check logs for details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "";
                 }
 
             }
-            return "No valid file or credentials was found";
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Access denied. Try running the app with appropriate permissions.", "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("I/O error occurred. Check logs for details.", "I/O Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An unexpected error occurred. Check logs for details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
+        }
+
+        public OracleConnection OpenConnection()
+        {
+            string connectionString = GetConnectionString();
+            OracleConnection connection = new OracleConnection(connectionString);
+            connection.Open();
+            return connection;
         }
 
     }
