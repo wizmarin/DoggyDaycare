@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Security.Cryptography;
 
-namespace DoggyDaycare
+namespace DoggyDaycare.Utilities
 {
     internal static class Decryptor
     {
