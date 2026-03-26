@@ -14,6 +14,11 @@ namespace DoggyDaycare.Forms
 {
     public partial class frmLogin : Form
     {
+        private readonly String loadOption = "Close";
+        private frmMain mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+        private frmDashboard dashboard;
+        private UserSession session = UserSession.GetInstance();
+
         public frmLogin()
         {
             InitializeComponent();
@@ -27,8 +32,6 @@ namespace DoggyDaycare.Forms
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            UserSession session = UserSession.GetInstance();
-
             try
             {
                 session.AuthenticateUser(username, password);
@@ -38,9 +41,12 @@ namespace DoggyDaycare.Forms
 
                 txtUsername.Text = string.Empty;
                 txtPassword.Text = string.Empty;
-                
-                MessageBox.Show("Login successful!");
-            } 
+
+                session.isLoggedIn = true;
+
+                dashboard = new frmDashboard();
+                mainForm.OpenChildForm(dashboard, loadOption);
+            }
             catch (UserNotFoundException ex)
             {
                 lblUsername.Text += ex.Message;
@@ -49,6 +55,12 @@ namespace DoggyDaycare.Forms
             {
                 lblPassword.Text += ex.Message;
             }
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            session.isLoggedIn = false;
+            session.isLoginInProgress = true;
         }
     }
 }

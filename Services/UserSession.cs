@@ -14,6 +14,9 @@ namespace DoggyDaycare.Services
         private static UserSession? _instance;
         private static string? _currentUser;
 
+        internal bool isLoggedIn { get; set; } = false;
+        internal bool isLoginInProgress { get; set; } = true;
+
         private UserSession() { }
 
         public static UserSession GetInstance()

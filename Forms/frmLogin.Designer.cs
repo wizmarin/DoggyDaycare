@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             btnLogin = new Button();
             picSeparator2 = new PictureBox();
             txtPassword = new TextBox();
@@ -170,15 +171,16 @@
             Controls.Add(picLoginDog);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             MaximizeBox = false;
             MaximumSize = new Size(850, 550);
-            MinimizeBox = false;
             MinimumSize = new Size(834, 511);
             Name = "frmLogin";
             Padding = new Padding(20);
             StartPosition = FormStartPosition.CenterParent;
-            Text = "frmLogin";
+            Text = "Doggy Daycare";
+            Load += frmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)picSeparator2).EndInit();
             ((System.ComponentModel.ISupportInitialize)picSeparator1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLoginDog).EndInit();

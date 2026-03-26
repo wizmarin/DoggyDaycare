@@ -1,6 +1,6 @@
-﻿namespace DoggyDaycare
+﻿namespace DoggyDaycare.Forms
 {
-    partial class frmMain
+    partial class frmDashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            pnlMainPanel = new Panel();
             SuspendLayout();
             // 
-            // pnlMainPanel
+            // frmDashboard
             // 
-            pnlMainPanel.AutoSize = true;
-            pnlMainPanel.Dock = DockStyle.Fill;
-            pnlMainPanel.Location = new Point(0, 0);
-            pnlMainPanel.Name = "pnlMainPanel";
-            pnlMainPanel.Size = new Size(834, 511);
-            pnlMainPanel.TabIndex = 1;
-            // 
-            // frmMain
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 244, 246);
-            ClientSize = new Size(834, 511);
-            Controls.Add(pnlMainPanel);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "frmMain";
-            Text = "Doggy Daycare";
-            Load += frmMain_Load;
+            ClientSize = new Size(1028, 600);
+            Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "frmDashboard";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "frmDashboard";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Panel pnlMainPanel;
     }
 }
