@@ -15,12 +15,14 @@ namespace DoggyDaycare.Forms
 {
     public partial class frmMain : Form
     {
-        private readonly String loadOption = "None";
+        private string loadOption = "None";
         private Form activeForm;
         private frmLogin loginForm;
         private UserSession session = UserSession.GetInstance();
-        
-        // internal bool isLoggedIn { get; set; }
+
+        private bool isMenuCollapsed = true;
+        private bool isAdminButtonCollapsed = true;
+
 
         public frmMain()
         {
@@ -29,8 +31,8 @@ namespace DoggyDaycare.Forms
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            HidePanel(pnlQuickAccess);
-            HideMenu(flpMenu);
+            HideMenu();
+            HideQuickAccess();
             ResizeWindow(850, 550);
 
             if (loginForm == null || loginForm.IsDisposed)
@@ -39,6 +41,66 @@ namespace DoggyDaycare.Forms
             }
 
             OpenChildForm(loginForm, loadOption);
+        }
+
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            if (isMenuCollapsed == true)
+            {
+                ExpandMenu();
+                isMenuCollapsed = false;
+            }
+            else
+            {
+                CollapseMenu();
+                isMenuCollapsed = true;
+            }
+        }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            if (session.GetCurrentUser() == "admin")
+            {
+                if (isAdminButtonCollapsed == true && isMenuCollapsed == false)
+                {
+                    ExpandAdminButton();
+                }
+                else if (isAdminButtonCollapsed == false)
+                {
+                    CollapseAdminButton();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You do not have permission to access this section.",
+                                "Access Denied",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            loginForm = new frmLogin();
+            loadOption = "Close";
+
+            session.isLoggedIn = false;
+            session.isLoginInProgress = true;
+
+            OpenChildForm(loginForm, loadOption);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("You are about to exit Doggy Daycare.\nWould you like to procced?",
+                                                    "Exit Application",
+                                                    MessageBoxButtons.OKCancel,
+                                                    MessageBoxIcon.Question);
+
+            if (result == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         internal void OpenChildForm(Form childForm, String option)
@@ -56,19 +118,17 @@ namespace DoggyDaycare.Forms
                     break;
             }
 
-            if (session.isLoggedIn == true && session.isLoginInProgress == true)
-            {
-                ShowPanel(pnlQuickAccess);
-                ShowMenu(flpMenu);
-                ResizeWindow(1206, 700);
-                session.isLoginInProgress = false;
-            }
-
             if (session.isLoggedIn == false && session.isLoginInProgress == true)
             {
-                HidePanel(pnlQuickAccess);
-                HideMenu(flpMenu);
+                HideMenu();
+                HideQuickAccess();
                 ResizeWindow(850, 550);
+            }
+            else if (session.isLoggedIn == true && session.isLoginInProgress == false)
+            {
+                ShowMenu();
+                ShowQuickAccess();
+                ResizeWindow(1206, 700);
             }
 
             activeForm = childForm;
@@ -80,28 +140,29 @@ namespace DoggyDaycare.Forms
             childForm.Show();
         }
 
-        private void HidePanel(Panel panel)
+        private void HideMenu()
         {
-            panel.Visible = false;
-            panel.Height = 0;
+            pnlMenu.Visible = false;
+            pnlMenu.Width = 0;
         }
 
-        private void ShowPanel(Panel panel)
+        private void ShowMenu()
         {
-            panel.Visible = true;
-            panel.Height = 48;
+            pnlMenu.Visible = true;
+            CollapseMenu();
+            // pnlMenu.Width = 175;
         }
 
-        private void HideMenu(FlowLayoutPanel panel)
+        private void HideQuickAccess()
         {
-            panel.Visible = false;
-            panel.Width = 0;
+            pnlQuickAccess.Visible = false;
+            pnlQuickAccess.Height = 0;
         }
 
-        private void ShowMenu(FlowLayoutPanel panel)
+        private void ShowQuickAccess()
         {
-            panel.Visible = true;
-            panel.Width = 200;
+            pnlQuickAccess.Visible = true;
+            pnlQuickAccess.Height = 40;
         }
 
         private void ResizeWindow(int weigth, int height)
@@ -109,5 +170,60 @@ namespace DoggyDaycare.Forms
             this.Size = new Size(weigth, height);
             this.CenterToScreen();
         }
+
+        private void ExpandMenu()
+        {
+            btnMenu.Text = " Menu";
+            btnDashboard.Text = " Dashboard";
+            btnBookings.Text = " Bookings";
+            btnCustomers.Text = " Customers";
+            btnPets.Text = " Pets";
+            btnServices.Text = " Services";
+            btnAdmin.Text = " Admin";
+            btnLogOut.Text = " Log Out";
+            btnExit.Text = " Exit";
+            pnlMenu.Width = 175;
+
+            isMenuCollapsed = false;
+        }
+
+        private void CollapseMenu()
+        {
+            CollapseAdminButton();
+
+            btnMenu.Text = "";
+            btnDashboard.Text = "";
+            btnBookings.Text = "";
+            btnCustomers.Text = "";
+            btnPets.Text = "";
+            btnServices.Text = "";
+            btnAdmin.Text = "";
+            btnLogOut.Text = "";
+            btnExit.Text = "";
+            pnlMenu.Width = 38;
+
+            isMenuCollapsed = true;
+        }
+
+        private void ExpandAdminButton()
+        {
+            btnReportDailyBookings.Visible = true;
+            btnReportCustomerBookings.Visible = true;
+
+            pnlAdminButton.Height = 135;
+
+            isAdminButtonCollapsed = false;
+        }
+
+        private void CollapseAdminButton()
+        {
+            btnReportDailyBookings.Visible = false;
+            btnReportCustomerBookings.Visible = false;
+
+            pnlAdminButton.Height = 35;
+
+            isAdminButtonCollapsed = true;
+        }
+
     }
 }

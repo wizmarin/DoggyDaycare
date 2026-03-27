@@ -43,6 +43,7 @@ namespace DoggyDaycare.Forms
                 txtPassword.Text = string.Empty;
 
                 session.isLoggedIn = true;
+                session.isLoginInProgress = false;
 
                 dashboard = new frmDashboard();
                 mainForm.OpenChildForm(dashboard, loadOption);
@@ -59,8 +60,7 @@ namespace DoggyDaycare.Forms
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            session.isLoggedIn = false;
-            session.isLoginInProgress = true;
+            
         }
     }
 }
