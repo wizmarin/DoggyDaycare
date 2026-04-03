@@ -33,7 +33,7 @@
             btnTabLabel = new Button();
             btnRegisterCustomer = new Button();
             btnRegisterPet = new Button();
-            btnAddNewBooking = new Button();
+            btnAddBooking = new Button();
             pnlContent = new Panel();
             pnlMenu = new Panel();
             btnLogOut = new Button();
@@ -59,7 +59,7 @@
             pnlQuickAccess.Controls.Add(btnTabLabel);
             pnlQuickAccess.Controls.Add(btnRegisterCustomer);
             pnlQuickAccess.Controls.Add(btnRegisterPet);
-            pnlQuickAccess.Controls.Add(btnAddNewBooking);
+            pnlQuickAccess.Controls.Add(btnAddBooking);
             pnlQuickAccess.Dock = DockStyle.Top;
             pnlQuickAccess.Location = new Point(0, 0);
             pnlQuickAccess.Margin = new Padding(0);
@@ -116,21 +116,21 @@
             btnRegisterPet.Text = "Register Pet";
             btnRegisterPet.UseVisualStyleBackColor = false;
             // 
-            // btnAddNewBooking
+            // btnAddBooking
             // 
-            btnAddNewBooking.BackColor = Color.FromArgb(225, 183, 186);
-            btnAddNewBooking.Cursor = Cursors.Hand;
-            btnAddNewBooking.Dock = DockStyle.Right;
-            btnAddNewBooking.FlatStyle = FlatStyle.Flat;
-            btnAddNewBooking.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAddNewBooking.ForeColor = Color.FromArgb(65, 64, 80);
-            btnAddNewBooking.Location = new Point(1025, 0);
-            btnAddNewBooking.Margin = new Padding(0);
-            btnAddNewBooking.Name = "btnAddNewBooking";
-            btnAddNewBooking.Size = new Size(165, 40);
-            btnAddNewBooking.TabIndex = 0;
-            btnAddNewBooking.Text = "Add New Booking";
-            btnAddNewBooking.UseVisualStyleBackColor = false;
+            btnAddBooking.BackColor = Color.FromArgb(225, 183, 186);
+            btnAddBooking.Cursor = Cursors.Hand;
+            btnAddBooking.Dock = DockStyle.Right;
+            btnAddBooking.FlatStyle = FlatStyle.Flat;
+            btnAddBooking.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAddBooking.ForeColor = Color.FromArgb(65, 64, 80);
+            btnAddBooking.Location = new Point(1025, 0);
+            btnAddBooking.Margin = new Padding(0);
+            btnAddBooking.Name = "btnAddBooking";
+            btnAddBooking.Size = new Size(165, 40);
+            btnAddBooking.TabIndex = 0;
+            btnAddBooking.Text = "Add Booking";
+            btnAddBooking.UseVisualStyleBackColor = false;
             // 
             // pnlContent
             // 
@@ -425,7 +425,7 @@
         #endregion
         private Panel pnlQuickAccess;
         private Panel pnlContent;
-        private Button btnAddNewBooking;
+        private Button btnAddBooking;
         private Button btnRegisterPet;
         private Button btnRegisterCustomer;
         private Button btnTabLabel;
