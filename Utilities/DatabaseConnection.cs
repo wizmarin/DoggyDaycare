@@ -1,11 +1,12 @@
-﻿using Oracle.ManagedDataAccess.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DoggyDaycare.Utilities
 {
@@ -14,8 +15,9 @@ namespace DoggyDaycare.Utilities
     {
         private System.Collections.Specialized.NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private string _connectionString;
+        private static DatabaseConnection? _instance;
 
-        public DatabaseConnection()
+        private DatabaseConnection()
         {
             var connectionString = TryCredentials();
 
@@ -25,6 +27,15 @@ namespace DoggyDaycare.Utilities
             }
 
             SetConnectionString(connectionString);
+        }
+
+        public static DatabaseConnection GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new DatabaseConnection();
+            }
+            return _instance;
         }
 
         private void SetConnectionString(string connectionString)
@@ -110,5 +121,43 @@ namespace DoggyDaycare.Utilities
             return connection;
         }
 
+        public DataSet ExecuteMultiRowQuery(string query)
+        {
+            OracleConnection conn = OpenConnection();
+
+            OracleCommand cmd = new OracleCommand(query, conn);
+
+            OracleDataAdapter da = new OracleDataAdapter(cmd);
+            
+            DataSet ds = new DataSet();
+
+            da.Fill(ds);
+
+            conn.Close();
+
+            return ds;
+        }
+
+        public OracleDataReader ExecuteSingleRowQuery(string query)
+        {
+            OracleConnection conn = OpenConnection();
+
+            OracleCommand cmd = new OracleCommand(query, conn);
+
+            OracleDataReader dr = cmd.ExecuteReader();
+
+            return dr;
+        }
+
+        public void ExecuteNonQuery(string query)
+        {
+            OracleConnection conn = OpenConnection();
+            
+            OracleCommand cmd = new OracleCommand(query, conn);
+            
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
     }
 }
