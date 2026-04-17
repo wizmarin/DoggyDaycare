@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pnlLabels = new Panel();
-            btnTodayLabel = new Button();
-            btnServicesLabel = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlServices = new Panel();
             tabServices = new TabControl();
             tabSmall = new TabPage();
@@ -47,7 +45,8 @@
             dgvCheckedInBookings = new DataGridView();
             tabCheckedOut = new TabPage();
             dgvCheckedOutBookings = new DataGridView();
-            pnlLabels.SuspendLayout();
+            btnServicesLabel = new Button();
+            btnTodayLabel = new Button();
             pnlServices.SuspendLayout();
             tabServices.SuspendLayout();
             tabSmall.SuspendLayout();
@@ -66,57 +65,15 @@
             ((System.ComponentModel.ISupportInitialize)dgvCheckedOutBookings).BeginInit();
             SuspendLayout();
             // 
-            // pnlLabels
-            // 
-            pnlLabels.Controls.Add(btnTodayLabel);
-            pnlLabels.Controls.Add(btnServicesLabel);
-            pnlLabels.Dock = DockStyle.Top;
-            pnlLabels.Location = new Point(0, 0);
-            pnlLabels.Name = "pnlLabels";
-            pnlLabels.Size = new Size(1028, 40);
-            pnlLabels.TabIndex = 0;
-            // 
-            // btnTodayLabel
-            // 
-            btnTodayLabel.Dock = DockStyle.Fill;
-            btnTodayLabel.Enabled = false;
-            btnTodayLabel.FlatAppearance.BorderColor = Color.FromArgb(65, 64, 80);
-            btnTodayLabel.FlatAppearance.BorderSize = 0;
-            btnTodayLabel.FlatStyle = FlatStyle.Flat;
-            btnTodayLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTodayLabel.ForeColor = Color.FromArgb(34, 24, 28);
-            btnTodayLabel.Location = new Point(0, 0);
-            btnTodayLabel.Name = "btnTodayLabel";
-            btnTodayLabel.Size = new Size(728, 40);
-            btnTodayLabel.TabIndex = 1;
-            btnTodayLabel.Text = "Today";
-            btnTodayLabel.TextAlign = ContentAlignment.MiddleLeft;
-            btnTodayLabel.UseVisualStyleBackColor = true;
-            // 
-            // btnServicesLabel
-            // 
-            btnServicesLabel.Dock = DockStyle.Right;
-            btnServicesLabel.Enabled = false;
-            btnServicesLabel.FlatAppearance.BorderColor = Color.FromArgb(65, 64, 80);
-            btnServicesLabel.FlatAppearance.BorderSize = 0;
-            btnServicesLabel.FlatStyle = FlatStyle.Flat;
-            btnServicesLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnServicesLabel.ForeColor = Color.FromArgb(34, 24, 28);
-            btnServicesLabel.Location = new Point(728, 0);
-            btnServicesLabel.Name = "btnServicesLabel";
-            btnServicesLabel.Size = new Size(300, 40);
-            btnServicesLabel.TabIndex = 0;
-            btnServicesLabel.Text = "Services";
-            btnServicesLabel.TextAlign = ContentAlignment.MiddleLeft;
-            btnServicesLabel.UseVisualStyleBackColor = true;
-            // 
             // pnlServices
             // 
+            pnlServices.BorderStyle = BorderStyle.FixedSingle;
             pnlServices.Controls.Add(tabServices);
+            pnlServices.Controls.Add(btnServicesLabel);
             pnlServices.Dock = DockStyle.Right;
-            pnlServices.Location = new Point(728, 40);
+            pnlServices.Location = new Point(728, 0);
             pnlServices.Name = "pnlServices";
-            pnlServices.Size = new Size(300, 560);
+            pnlServices.Size = new Size(300, 600);
             pnlServices.TabIndex = 1;
             // 
             // tabServices
@@ -125,21 +82,23 @@
             tabServices.Controls.Add(tabMedium);
             tabServices.Controls.Add(tabBig);
             tabServices.Dock = DockStyle.Fill;
-            tabServices.Location = new Point(0, 0);
+            tabServices.Location = new Point(0, 40);
             tabServices.Name = "tabServices";
             tabServices.SelectedIndex = 0;
-            tabServices.Size = new Size(300, 560);
+            tabServices.Size = new Size(298, 558);
             tabServices.SizeMode = TabSizeMode.Fixed;
             tabServices.TabIndex = 0;
             // 
             // tabSmall
             // 
+            tabSmall.AutoScroll = true;
             tabSmall.Controls.Add(dgvSmallServices);
+            tabSmall.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabSmall.ForeColor = Color.FromArgb(34, 24, 28);
             tabSmall.Location = new Point(4, 29);
             tabSmall.Name = "tabSmall";
             tabSmall.Padding = new Padding(3);
-            tabSmall.Size = new Size(292, 527);
+            tabSmall.Size = new Size(290, 525);
             tabSmall.TabIndex = 0;
             tabSmall.Text = "Small";
             tabSmall.UseVisualStyleBackColor = true;
@@ -148,22 +107,34 @@
             // 
             dgvSmallServices.AllowUserToAddRows = false;
             dgvSmallServices.AllowUserToDeleteRows = false;
+            dgvSmallServices.AllowUserToResizeColumns = false;
+            dgvSmallServices.AllowUserToResizeRows = false;
+            dgvSmallServices.BackgroundColor = Color.FromArgb(246, 244, 246);
             dgvSmallServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(34, 24, 28);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvSmallServices.DefaultCellStyle = dataGridViewCellStyle1;
             dgvSmallServices.Dock = DockStyle.Fill;
             dgvSmallServices.Location = new Point(3, 3);
             dgvSmallServices.Name = "dgvSmallServices";
             dgvSmallServices.ReadOnly = true;
-            dgvSmallServices.Size = new Size(286, 521);
+            dgvSmallServices.Size = new Size(284, 519);
             dgvSmallServices.TabIndex = 0;
             // 
             // tabMedium
             // 
             tabMedium.Controls.Add(dgvMediumServices);
+            tabMedium.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabMedium.ForeColor = Color.FromArgb(34, 24, 28);
-            tabMedium.Location = new Point(4, 29);
+            tabMedium.Location = new Point(4, 24);
             tabMedium.Name = "tabMedium";
             tabMedium.Padding = new Padding(3);
-            tabMedium.Size = new Size(292, 527);
+            tabMedium.Size = new Size(292, 532);
             tabMedium.TabIndex = 1;
             tabMedium.Text = "Medium";
             tabMedium.UseVisualStyleBackColor = true;
@@ -172,22 +143,26 @@
             // 
             dgvMediumServices.AllowUserToAddRows = false;
             dgvMediumServices.AllowUserToDeleteRows = false;
+            dgvMediumServices.AllowUserToResizeColumns = false;
+            dgvMediumServices.AllowUserToResizeRows = false;
+            dgvMediumServices.BackgroundColor = Color.FromArgb(246, 244, 246);
             dgvMediumServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMediumServices.Dock = DockStyle.Fill;
             dgvMediumServices.Location = new Point(3, 3);
             dgvMediumServices.Name = "dgvMediumServices";
             dgvMediumServices.ReadOnly = true;
-            dgvMediumServices.Size = new Size(286, 521);
+            dgvMediumServices.Size = new Size(286, 526);
             dgvMediumServices.TabIndex = 0;
             // 
             // tabBig
             // 
             tabBig.Controls.Add(dgvBigServices);
+            tabBig.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabBig.ForeColor = Color.FromArgb(34, 24, 28);
-            tabBig.Location = new Point(4, 29);
+            tabBig.Location = new Point(4, 24);
             tabBig.Name = "tabBig";
             tabBig.Padding = new Padding(3);
-            tabBig.Size = new Size(292, 527);
+            tabBig.Size = new Size(292, 532);
             tabBig.TabIndex = 2;
             tabBig.Text = "Big";
             tabBig.UseVisualStyleBackColor = true;
@@ -196,21 +171,26 @@
             // 
             dgvBigServices.AllowUserToAddRows = false;
             dgvBigServices.AllowUserToDeleteRows = false;
+            dgvBigServices.AllowUserToResizeColumns = false;
+            dgvBigServices.AllowUserToResizeRows = false;
+            dgvBigServices.BackgroundColor = Color.FromArgb(246, 244, 246);
             dgvBigServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBigServices.Dock = DockStyle.Fill;
             dgvBigServices.Location = new Point(3, 3);
             dgvBigServices.Name = "dgvBigServices";
             dgvBigServices.ReadOnly = true;
-            dgvBigServices.Size = new Size(286, 521);
+            dgvBigServices.Size = new Size(286, 526);
             dgvBigServices.TabIndex = 0;
             // 
             // pnlBookings
             // 
+            pnlBookings.BorderStyle = BorderStyle.FixedSingle;
             pnlBookings.Controls.Add(tabBookings);
+            pnlBookings.Controls.Add(btnTodayLabel);
             pnlBookings.Dock = DockStyle.Fill;
-            pnlBookings.Location = new Point(0, 40);
+            pnlBookings.Location = new Point(0, 0);
             pnlBookings.Name = "pnlBookings";
-            pnlBookings.Size = new Size(728, 560);
+            pnlBookings.Size = new Size(728, 600);
             pnlBookings.TabIndex = 2;
             // 
             // tabBookings
@@ -220,21 +200,22 @@
             tabBookings.Controls.Add(tabCheckedOut);
             tabBookings.Dock = DockStyle.Fill;
             tabBookings.ItemSize = new Size(88, 25);
-            tabBookings.Location = new Point(0, 0);
+            tabBookings.Location = new Point(0, 40);
             tabBookings.Name = "tabBookings";
             tabBookings.SelectedIndex = 0;
-            tabBookings.Size = new Size(728, 560);
+            tabBookings.Size = new Size(726, 558);
             tabBookings.SizeMode = TabSizeMode.FillToRight;
             tabBookings.TabIndex = 0;
             // 
             // tabUpcoming
             // 
             tabUpcoming.Controls.Add(dgvUpcomingBookings);
+            tabUpcoming.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabUpcoming.ForeColor = Color.FromArgb(34, 24, 28);
             tabUpcoming.Location = new Point(4, 29);
             tabUpcoming.Name = "tabUpcoming";
             tabUpcoming.Padding = new Padding(3);
-            tabUpcoming.Size = new Size(720, 527);
+            tabUpcoming.Size = new Size(718, 525);
             tabUpcoming.TabIndex = 0;
             tabUpcoming.Text = "Upcoming";
             tabUpcoming.UseVisualStyleBackColor = true;
@@ -243,17 +224,21 @@
             // 
             dgvUpcomingBookings.AllowUserToAddRows = false;
             dgvUpcomingBookings.AllowUserToDeleteRows = false;
+            dgvUpcomingBookings.AllowUserToResizeColumns = false;
+            dgvUpcomingBookings.AllowUserToResizeRows = false;
+            dgvUpcomingBookings.BackgroundColor = Color.FromArgb(246, 244, 246);
             dgvUpcomingBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUpcomingBookings.Dock = DockStyle.Fill;
             dgvUpcomingBookings.Location = new Point(3, 3);
             dgvUpcomingBookings.Name = "dgvUpcomingBookings";
             dgvUpcomingBookings.ReadOnly = true;
-            dgvUpcomingBookings.Size = new Size(714, 521);
+            dgvUpcomingBookings.Size = new Size(712, 519);
             dgvUpcomingBookings.TabIndex = 0;
             // 
             // tabCheckedIn
             // 
             tabCheckedIn.Controls.Add(dgvCheckedInBookings);
+            tabCheckedIn.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabCheckedIn.ForeColor = Color.FromArgb(34, 24, 28);
             tabCheckedIn.Location = new Point(4, 29);
             tabCheckedIn.Name = "tabCheckedIn";
@@ -265,6 +250,7 @@
             // 
             // dgvCheckedInBookings
             // 
+            dgvCheckedInBookings.BackgroundColor = Color.FromArgb(246, 244, 246);
             dgvCheckedInBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCheckedInBookings.Dock = DockStyle.Fill;
             dgvCheckedInBookings.Location = new Point(3, 3);
@@ -275,6 +261,7 @@
             // tabCheckedOut
             // 
             tabCheckedOut.Controls.Add(dgvCheckedOutBookings);
+            tabCheckedOut.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabCheckedOut.ForeColor = Color.FromArgb(34, 24, 28);
             tabCheckedOut.Location = new Point(4, 29);
             tabCheckedOut.Name = "tabCheckedOut";
@@ -286,12 +273,47 @@
             // 
             // dgvCheckedOutBookings
             // 
+            dgvCheckedOutBookings.BackgroundColor = Color.FromArgb(246, 244, 246);
             dgvCheckedOutBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCheckedOutBookings.Dock = DockStyle.Fill;
             dgvCheckedOutBookings.Location = new Point(3, 3);
             dgvCheckedOutBookings.Name = "dgvCheckedOutBookings";
             dgvCheckedOutBookings.Size = new Size(714, 521);
             dgvCheckedOutBookings.TabIndex = 0;
+            // 
+            // btnServicesLabel
+            // 
+            btnServicesLabel.Dock = DockStyle.Top;
+            btnServicesLabel.Enabled = false;
+            btnServicesLabel.FlatAppearance.BorderColor = Color.FromArgb(65, 64, 80);
+            btnServicesLabel.FlatAppearance.BorderSize = 0;
+            btnServicesLabel.FlatStyle = FlatStyle.Flat;
+            btnServicesLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnServicesLabel.ForeColor = Color.FromArgb(34, 24, 28);
+            btnServicesLabel.Location = new Point(0, 0);
+            btnServicesLabel.Name = "btnServicesLabel";
+            btnServicesLabel.Size = new Size(298, 40);
+            btnServicesLabel.TabIndex = 1;
+            btnServicesLabel.Text = "Services";
+            btnServicesLabel.TextAlign = ContentAlignment.MiddleLeft;
+            btnServicesLabel.UseVisualStyleBackColor = true;
+            // 
+            // btnTodayLabel
+            // 
+            btnTodayLabel.Dock = DockStyle.Top;
+            btnTodayLabel.Enabled = false;
+            btnTodayLabel.FlatAppearance.BorderColor = Color.FromArgb(65, 64, 80);
+            btnTodayLabel.FlatAppearance.BorderSize = 0;
+            btnTodayLabel.FlatStyle = FlatStyle.Flat;
+            btnTodayLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTodayLabel.ForeColor = Color.FromArgb(34, 24, 28);
+            btnTodayLabel.Location = new Point(0, 0);
+            btnTodayLabel.Name = "btnTodayLabel";
+            btnTodayLabel.Size = new Size(726, 40);
+            btnTodayLabel.TabIndex = 2;
+            btnTodayLabel.Text = "Today";
+            btnTodayLabel.TextAlign = ContentAlignment.MiddleLeft;
+            btnTodayLabel.UseVisualStyleBackColor = true;
             // 
             // frmDashboard
             // 
@@ -301,14 +323,13 @@
             ClientSize = new Size(1028, 600);
             Controls.Add(pnlBookings);
             Controls.Add(pnlServices);
-            Controls.Add(pnlLabels);
             Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmDashboard";
             StartPosition = FormStartPosition.CenterParent;
             Text = "frmDashboard";
-            pnlLabels.ResumeLayout(false);
+            Load += frmDashboard_Load;
             pnlServices.ResumeLayout(false);
             tabServices.ResumeLayout(false);
             tabSmall.ResumeLayout(false);
@@ -329,10 +350,6 @@
         }
 
         #endregion
-
-        private Panel pnlLabels;
-        private Button btnServicesLabel;
-        private Button btnTodayLabel;
         private Panel pnlServices;
         private Panel pnlBookings;
         private TabControl tabServices;
@@ -349,5 +366,7 @@
         private DataGridView dgvSmallServices;
         private DataGridView dgvMediumServices;
         private DataGridView dgvBigServices;
+        private Button btnServicesLabel;
+        private Button btnTodayLabel;
     }
 }

@@ -41,6 +41,7 @@
             pnlAdminButton = new Panel();
             btnReportCustomerBookings = new Button();
             btnReportDailyBookings = new Button();
+            btnAddService = new Button();
             btnAdmin = new Button();
             btnServices = new Button();
             btnPets = new Button();
@@ -99,6 +100,7 @@
             btnRegisterCustomer.TabIndex = 2;
             btnRegisterCustomer.Text = "Register Customer";
             btnRegisterCustomer.UseVisualStyleBackColor = false;
+            btnRegisterCustomer.Click += btnRegisterCustomer_Click;
             // 
             // btnRegisterPet
             // 
@@ -115,6 +117,7 @@
             btnRegisterPet.TabIndex = 1;
             btnRegisterPet.Text = "Register Pet";
             btnRegisterPet.UseVisualStyleBackColor = false;
+            btnRegisterPet.Click += btnRegisterPet_Click;
             // 
             // btnAddBooking
             // 
@@ -131,6 +134,7 @@
             btnAddBooking.TabIndex = 0;
             btnAddBooking.Text = "Add Booking";
             btnAddBooking.UseVisualStyleBackColor = false;
+            btnAddBooking.Click += btnAddBooking_Click;
             // 
             // pnlContent
             // 
@@ -207,11 +211,12 @@
             // 
             pnlAdminButton.Controls.Add(btnReportCustomerBookings);
             pnlAdminButton.Controls.Add(btnReportDailyBookings);
+            pnlAdminButton.Controls.Add(btnAddService);
             pnlAdminButton.Controls.Add(btnAdmin);
             pnlAdminButton.Dock = DockStyle.Top;
             pnlAdminButton.Location = new Point(0, 210);
             pnlAdminButton.Name = "pnlAdminButton";
-            pnlAdminButton.Size = new Size(175, 135);
+            pnlAdminButton.Size = new Size(175, 170);
             pnlAdminButton.TabIndex = 8;
             // 
             // btnReportCustomerBookings
@@ -224,7 +229,7 @@
             btnReportCustomerBookings.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnReportCustomerBookings.ForeColor = Color.FromArgb(225, 183, 186);
             btnReportCustomerBookings.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportCustomerBookings.Location = new Point(0, 85);
+            btnReportCustomerBookings.Location = new Point(0, 120);
             btnReportCustomerBookings.Margin = new Padding(0);
             btnReportCustomerBookings.Name = "btnReportCustomerBookings";
             btnReportCustomerBookings.Padding = new Padding(25, 0, 0, 0);
@@ -246,7 +251,7 @@
             btnReportDailyBookings.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnReportDailyBookings.ForeColor = Color.FromArgb(225, 183, 186);
             btnReportDailyBookings.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportDailyBookings.Location = new Point(0, 35);
+            btnReportDailyBookings.Location = new Point(0, 70);
             btnReportDailyBookings.Margin = new Padding(0);
             btnReportDailyBookings.Name = "btnReportDailyBookings";
             btnReportDailyBookings.Padding = new Padding(25, 0, 0, 0);
@@ -257,6 +262,29 @@
             btnReportDailyBookings.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnReportDailyBookings.UseVisualStyleBackColor = false;
             btnReportDailyBookings.Visible = false;
+            // 
+            // btnAddService
+            // 
+            btnAddService.BackColor = Color.FromArgb(45, 44, 56);
+            btnAddService.Cursor = Cursors.Hand;
+            btnAddService.Dock = DockStyle.Top;
+            btnAddService.FlatAppearance.BorderSize = 0;
+            btnAddService.FlatStyle = FlatStyle.Flat;
+            btnAddService.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAddService.ForeColor = Color.FromArgb(225, 183, 186);
+            btnAddService.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAddService.Location = new Point(0, 35);
+            btnAddService.Margin = new Padding(0);
+            btnAddService.Name = "btnAddService";
+            btnAddService.Padding = new Padding(25, 0, 0, 0);
+            btnAddService.Size = new Size(175, 35);
+            btnAddService.TabIndex = 9;
+            btnAddService.Text = "Add New Service";
+            btnAddService.TextAlign = ContentAlignment.MiddleLeft;
+            btnAddService.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAddService.UseVisualStyleBackColor = false;
+            btnAddService.Visible = false;
+            btnAddService.Click += btnAddService_Click;
             // 
             // btnAdmin
             // 
@@ -298,6 +326,7 @@
             btnServices.Text = " Services";
             btnServices.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnServices.UseVisualStyleBackColor = true;
+            btnServices.Click += btnServices_Click;
             // 
             // btnPets
             // 
@@ -318,6 +347,7 @@
             btnPets.Text = " Pets";
             btnPets.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnPets.UseVisualStyleBackColor = true;
+            btnPets.Click += btnPets_Click;
             // 
             // btnCustomers
             // 
@@ -338,6 +368,7 @@
             btnCustomers.Text = " Customers";
             btnCustomers.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCustomers.UseVisualStyleBackColor = true;
+            btnCustomers.Click += btnCustomers_Click;
             // 
             // btnBookings
             // 
@@ -358,6 +389,7 @@
             btnBookings.Text = " Bookings";
             btnBookings.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnBookings.UseVisualStyleBackColor = true;
+            btnBookings.Click += btnBookings_Click;
             // 
             // btnDashboard
             // 
@@ -378,6 +410,7 @@
             btnDashboard.Text = " Dashboard";
             btnDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnDashboard.UseVisualStyleBackColor = true;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // btnMenu
             // 
@@ -442,5 +475,6 @@
         private Button btnAdmin;
         private Button btnReportCustomerBookings;
         private Button btnReportDailyBookings;
+        private Button btnAddService;
     }
 }

@@ -6,9 +6,10 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using DoggyDaycare.Utilities;
 using Oracle.ManagedDataAccess.Client;
 
-namespace DoggyDaycare.Utilities
+namespace DoggyDaycare.Data.Database
 {
 
     internal class DatabaseConnection

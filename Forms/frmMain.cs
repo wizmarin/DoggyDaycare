@@ -18,7 +18,7 @@ namespace DoggyDaycare.Forms
         private string loadOption = "None";
         private Form activeForm;
         private frmLogin loginForm;
-        private UserSession session = UserSession.GetInstance();
+        private UserSessionManager session = UserSessionManager.GetInstance();
 
         private bool isMenuCollapsed = true;
         private bool isAdminButtonCollapsed = true;
@@ -43,6 +43,27 @@ namespace DoggyDaycare.Forms
             OpenChildForm(loginForm, loadOption);
         }
 
+        private void btnRegisterCustomer_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Register Customer 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmRegisterCustomer(), loadOption);
+        }
+
+        private void btnRegisterPet_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Register Pet 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmRegisterPet(), loadOption);
+        }
+
+        private void btnAddBooking_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Add Booking 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmAddBooking(), loadOption);
+        }
+
         private void btnMenu_Click(object sender, EventArgs e)
         {
             if (isMenuCollapsed == true)
@@ -54,6 +75,51 @@ namespace DoggyDaycare.Forms
             {
                 CollapseMenu();
                 isMenuCollapsed = true;
+            }
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Dashboard 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmDashboard(), loadOption);
+        }
+
+        private void btnBookings_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Bookings 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmBookings(), loadOption);
+        }
+
+        private void btnCustomers_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Customers 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmCustomers(), loadOption);
+        }
+
+        private void btnPets_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Pets 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmPets(), loadOption);
+        }
+
+        private void btnServices_Click(object sender, EventArgs e)
+        {
+            if (session.GetCurrentUser() == "admin")
+            {
+                btnTabLabel.Text = "Services 🐾";
+                loadOption = "Close";
+                OpenChildForm(new frmServices(), loadOption);
+            }
+            else
+            {
+                MessageBox.Show("You do not have permission to access this section.",
+                                "Access Denied",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
             }
         }
 
@@ -77,6 +143,13 @@ namespace DoggyDaycare.Forms
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnAddService_Click(object sender, EventArgs e)
+        {
+            btnTabLabel.Text = "Add Service 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmAddService(), loadOption);
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -207,16 +280,18 @@ namespace DoggyDaycare.Forms
 
         private void ExpandAdminButton()
         {
+            btnAddService.Visible = true;
             btnReportDailyBookings.Visible = true;
             btnReportCustomerBookings.Visible = true;
 
-            pnlAdminButton.Height = 135;
+            pnlAdminButton.Height = 170;
 
             isAdminButtonCollapsed = false;
         }
 
         private void CollapseAdminButton()
         {
+            btnAddService.Visible = false;
             btnReportDailyBookings.Visible = false;
             btnReportCustomerBookings.Visible = false;
 

@@ -9,21 +9,21 @@ using DoggyDaycare.Exceptions;
 
 namespace DoggyDaycare.Services
 {
-    public class UserSession
+    public class UserSessionManager
     {
-        private static UserSession? _instance;
+        private static UserSessionManager? _instance;
         private static string? _currentUser;
 
         internal bool isLoggedIn { get; set; } = false;
         internal bool isLoginInProgress { get; set; } = true;
 
-        private UserSession() { }
+        private UserSessionManager() { }
 
-        public static UserSession GetInstance()
+        public static UserSessionManager GetInstance()
         {
             if (_instance == null)
             {
-                _instance = new UserSession();
+                _instance = new UserSessionManager();
             }
 
             return _instance;
