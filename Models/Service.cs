@@ -98,7 +98,7 @@ namespace DoggyDaycare.Models
 
         public string ToString()
         {
-            return $"Service ID: {Id}\nName: {Name}\nBreed Type: {BreedType}\nPrice Per Hour: {PricePerHour}\nMax Capacity Per Time Slot: {MaxCapacityPerSlot}";
+            return $"Service ID: {Id}\nService Name: {Name}\nBreed Type: {BreedType}\nPrice Per Hour: {PricePerHour}\nMax Capacity Per Time Slot: {MaxCapacityPerSlot}";
         }
     }
 }

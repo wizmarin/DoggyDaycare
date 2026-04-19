@@ -180,7 +180,6 @@
             Padding = new Padding(20);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Doggy Daycare";
-            Load += frmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)picSeparator2).EndInit();
             ((System.ComponentModel.ISupportInitialize)picSeparator1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLoginDog).EndInit();

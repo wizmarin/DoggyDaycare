@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DoggyDaycare.Exceptions;
 
-namespace DoggyDaycare.Services
+namespace DoggyDaycare.Managers
 {
     public class UserSessionManager
     {

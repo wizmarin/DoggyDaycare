@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlServices = new Panel();
             tabServices = new TabControl();
             tabSmall = new TabPage();
@@ -37,6 +38,7 @@
             dgvMediumServices = new DataGridView();
             tabBig = new TabPage();
             dgvBigServices = new DataGridView();
+            btnServicesLabel = new Button();
             pnlBookings = new Panel();
             tabBookings = new TabControl();
             tabUpcoming = new TabPage();
@@ -45,7 +47,6 @@
             dgvCheckedInBookings = new DataGridView();
             tabCheckedOut = new TabPage();
             dgvCheckedOutBookings = new DataGridView();
-            btnServicesLabel = new Button();
             btnTodayLabel = new Button();
             pnlServices.SuspendLayout();
             tabServices.SuspendLayout();
@@ -110,19 +111,29 @@
             dgvSmallServices.AllowUserToResizeColumns = false;
             dgvSmallServices.AllowUserToResizeRows = false;
             dgvSmallServices.BackgroundColor = Color.FromArgb(246, 244, 246);
-            dgvSmallServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.FromArgb(34, 24, 28);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dgvSmallServices.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvSmallServices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvSmallServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(34, 24, 28);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvSmallServices.DefaultCellStyle = dataGridViewCellStyle2;
             dgvSmallServices.Dock = DockStyle.Fill;
             dgvSmallServices.Location = new Point(3, 3);
+            dgvSmallServices.MultiSelect = false;
             dgvSmallServices.Name = "dgvSmallServices";
             dgvSmallServices.ReadOnly = true;
+            dgvSmallServices.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSmallServices.Size = new Size(284, 519);
             dgvSmallServices.TabIndex = 0;
             // 
@@ -131,10 +142,10 @@
             tabMedium.Controls.Add(dgvMediumServices);
             tabMedium.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabMedium.ForeColor = Color.FromArgb(34, 24, 28);
-            tabMedium.Location = new Point(4, 24);
+            tabMedium.Location = new Point(4, 29);
             tabMedium.Name = "tabMedium";
             tabMedium.Padding = new Padding(3);
-            tabMedium.Size = new Size(292, 532);
+            tabMedium.Size = new Size(290, 525);
             tabMedium.TabIndex = 1;
             tabMedium.Text = "Medium";
             tabMedium.UseVisualStyleBackColor = true;
@@ -149,9 +160,11 @@
             dgvMediumServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMediumServices.Dock = DockStyle.Fill;
             dgvMediumServices.Location = new Point(3, 3);
+            dgvMediumServices.MultiSelect = false;
             dgvMediumServices.Name = "dgvMediumServices";
             dgvMediumServices.ReadOnly = true;
-            dgvMediumServices.Size = new Size(286, 526);
+            dgvMediumServices.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMediumServices.Size = new Size(284, 519);
             dgvMediumServices.TabIndex = 0;
             // 
             // tabBig
@@ -159,10 +172,10 @@
             tabBig.Controls.Add(dgvBigServices);
             tabBig.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabBig.ForeColor = Color.FromArgb(34, 24, 28);
-            tabBig.Location = new Point(4, 24);
+            tabBig.Location = new Point(4, 29);
             tabBig.Name = "tabBig";
             tabBig.Padding = new Padding(3);
-            tabBig.Size = new Size(292, 532);
+            tabBig.Size = new Size(290, 525);
             tabBig.TabIndex = 2;
             tabBig.Text = "Big";
             tabBig.UseVisualStyleBackColor = true;
@@ -177,10 +190,29 @@
             dgvBigServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBigServices.Dock = DockStyle.Fill;
             dgvBigServices.Location = new Point(3, 3);
+            dgvBigServices.MultiSelect = false;
             dgvBigServices.Name = "dgvBigServices";
             dgvBigServices.ReadOnly = true;
-            dgvBigServices.Size = new Size(286, 526);
+            dgvBigServices.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBigServices.Size = new Size(284, 519);
             dgvBigServices.TabIndex = 0;
+            // 
+            // btnServicesLabel
+            // 
+            btnServicesLabel.Dock = DockStyle.Top;
+            btnServicesLabel.Enabled = false;
+            btnServicesLabel.FlatAppearance.BorderColor = Color.FromArgb(65, 64, 80);
+            btnServicesLabel.FlatAppearance.BorderSize = 0;
+            btnServicesLabel.FlatStyle = FlatStyle.Flat;
+            btnServicesLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnServicesLabel.ForeColor = Color.FromArgb(34, 24, 28);
+            btnServicesLabel.Location = new Point(0, 0);
+            btnServicesLabel.Name = "btnServicesLabel";
+            btnServicesLabel.Size = new Size(298, 40);
+            btnServicesLabel.TabIndex = 1;
+            btnServicesLabel.Text = "Services";
+            btnServicesLabel.TextAlign = ContentAlignment.MiddleLeft;
+            btnServicesLabel.UseVisualStyleBackColor = true;
             // 
             // pnlBookings
             // 
@@ -230,8 +262,10 @@
             dgvUpcomingBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUpcomingBookings.Dock = DockStyle.Fill;
             dgvUpcomingBookings.Location = new Point(3, 3);
+            dgvUpcomingBookings.MultiSelect = false;
             dgvUpcomingBookings.Name = "dgvUpcomingBookings";
             dgvUpcomingBookings.ReadOnly = true;
+            dgvUpcomingBookings.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUpcomingBookings.Size = new Size(712, 519);
             dgvUpcomingBookings.TabIndex = 0;
             // 
@@ -243,7 +277,7 @@
             tabCheckedIn.Location = new Point(4, 29);
             tabCheckedIn.Name = "tabCheckedIn";
             tabCheckedIn.Padding = new Padding(3);
-            tabCheckedIn.Size = new Size(720, 527);
+            tabCheckedIn.Size = new Size(718, 525);
             tabCheckedIn.TabIndex = 1;
             tabCheckedIn.Text = "Checked-In";
             tabCheckedIn.UseVisualStyleBackColor = true;
@@ -254,8 +288,10 @@
             dgvCheckedInBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCheckedInBookings.Dock = DockStyle.Fill;
             dgvCheckedInBookings.Location = new Point(3, 3);
+            dgvCheckedInBookings.MultiSelect = false;
             dgvCheckedInBookings.Name = "dgvCheckedInBookings";
-            dgvCheckedInBookings.Size = new Size(714, 521);
+            dgvCheckedInBookings.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCheckedInBookings.Size = new Size(712, 519);
             dgvCheckedInBookings.TabIndex = 0;
             // 
             // tabCheckedOut
@@ -266,7 +302,7 @@
             tabCheckedOut.Location = new Point(4, 29);
             tabCheckedOut.Name = "tabCheckedOut";
             tabCheckedOut.Padding = new Padding(3);
-            tabCheckedOut.Size = new Size(720, 527);
+            tabCheckedOut.Size = new Size(718, 525);
             tabCheckedOut.TabIndex = 2;
             tabCheckedOut.Text = "Checked-Out";
             tabCheckedOut.UseVisualStyleBackColor = true;
@@ -277,26 +313,11 @@
             dgvCheckedOutBookings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCheckedOutBookings.Dock = DockStyle.Fill;
             dgvCheckedOutBookings.Location = new Point(3, 3);
+            dgvCheckedOutBookings.MultiSelect = false;
             dgvCheckedOutBookings.Name = "dgvCheckedOutBookings";
-            dgvCheckedOutBookings.Size = new Size(714, 521);
+            dgvCheckedOutBookings.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCheckedOutBookings.Size = new Size(712, 519);
             dgvCheckedOutBookings.TabIndex = 0;
-            // 
-            // btnServicesLabel
-            // 
-            btnServicesLabel.Dock = DockStyle.Top;
-            btnServicesLabel.Enabled = false;
-            btnServicesLabel.FlatAppearance.BorderColor = Color.FromArgb(65, 64, 80);
-            btnServicesLabel.FlatAppearance.BorderSize = 0;
-            btnServicesLabel.FlatStyle = FlatStyle.Flat;
-            btnServicesLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnServicesLabel.ForeColor = Color.FromArgb(34, 24, 28);
-            btnServicesLabel.Location = new Point(0, 0);
-            btnServicesLabel.Name = "btnServicesLabel";
-            btnServicesLabel.Size = new Size(298, 40);
-            btnServicesLabel.TabIndex = 1;
-            btnServicesLabel.Text = "Services";
-            btnServicesLabel.TextAlign = ContentAlignment.MiddleLeft;
-            btnServicesLabel.UseVisualStyleBackColor = true;
             // 
             // btnTodayLabel
             // 

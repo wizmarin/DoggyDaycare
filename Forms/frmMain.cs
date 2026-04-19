@@ -9,7 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DoggyDaycare.Services;
+using DoggyDaycare.Managers;
 
 namespace DoggyDaycare.Forms
 {
@@ -108,19 +108,9 @@ namespace DoggyDaycare.Forms
 
         private void btnServices_Click(object sender, EventArgs e)
         {
-            if (session.GetCurrentUser() == "admin")
-            {
-                btnTabLabel.Text = "Services 🐾";
-                loadOption = "Close";
-                OpenChildForm(new frmServices(), loadOption);
-            }
-            else
-            {
-                MessageBox.Show("You do not have permission to access this section.",
-                                "Access Denied",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-            }
+            btnTabLabel.Text = "Services 🐾";
+            loadOption = "Close";
+            OpenChildForm(new frmServices(), loadOption);
         }
 
         private void btnAdmin_Click(object sender, EventArgs e)

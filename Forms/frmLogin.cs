@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DoggyDaycare.Exceptions;
-using DoggyDaycare.Services;
+using DoggyDaycare.Managers;
 
 namespace DoggyDaycare.Forms
 {
@@ -56,11 +56,6 @@ namespace DoggyDaycare.Forms
             {
                 lblPassword.Text += ex.Message;
             }
-        }
-
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-            
         }
     }
 }
