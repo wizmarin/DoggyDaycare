@@ -16,7 +16,7 @@ namespace DoggyDaycare.Forms
     public partial class frmServices : Form
     {
         private UserSessionManager session = UserSessionManager.GetInstance();
-        private bool _isLoading = false;
+        private bool _isDataLoading = false;
         private Service selected;
         private List<Service> dataSource;
 
@@ -27,7 +27,7 @@ namespace DoggyDaycare.Forms
 
         private void frmServices_Load(object sender, EventArgs e)
         {
-            _isLoading = true;
+            _isDataLoading = true;
 
             if (session.GetCurrentUser() != "admin")
             {
@@ -36,12 +36,12 @@ namespace DoggyDaycare.Forms
             }
 
             LoadAllServices();
-            _isLoading = false;
+            _isDataLoading = false;
         }
 
         private void dgvResult_SelectionChanged(object sender, EventArgs e)
         {
-            if (_isLoading) return;
+            if (_isDataLoading) return;
 
             if (dgvResult.SelectedRows.Count == 0)
             {
@@ -66,7 +66,14 @@ namespace DoggyDaycare.Forms
 
         private void btnUpdateInformation_Click(object sender, EventArgs e)
         {
-            // TODO: Implement update functionality, possibly opening a new form to edit the selected service
+            try
+            {
+                ServiceManager.LoadUpdateForm(selected);
+            }
+            catch (NoSelectionException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDeactivate_Click(object sender, EventArgs e)
@@ -74,13 +81,17 @@ namespace DoggyDaycare.Forms
             try 
             {
                 ServiceManager.DeactivateService(selected);
-                _isLoading = true;
+                _isDataLoading = true;
                 UpdateDataSource(selected, "deactivate");
-                _isLoading = false;
+                _isDataLoading = false;
             }
             catch (NoSelectionException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (DeactivationAbortedException ex)
+            {
+                MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -91,7 +102,7 @@ namespace DoggyDaycare.Forms
             FormatDataView();
         }
 
-        private void UpdateDataSource(Service service, string option)
+        internal void UpdateDataSource(Service service, string option)
         {
             if (option == "update")
             {

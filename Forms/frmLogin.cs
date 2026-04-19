@@ -14,7 +14,7 @@ namespace DoggyDaycare.Forms
 {
     public partial class frmLogin : Form
     {
-        private readonly String loadOption = "Close";
+        private readonly string loadOption = "Close";
         private frmMain mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
         private frmDashboard dashboard;
         private UserSessionManager session = UserSessionManager.GetInstance();

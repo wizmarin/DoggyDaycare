@@ -7,7 +7,7 @@ using DoggyDaycare.Data.Attributes;
 
 namespace DoggyDaycare.Models
 {
-    internal class Service
+    public class Service
     {
         [ColumnName("SERVICE_ID")]
         public int Id { get; set; }
@@ -56,13 +56,8 @@ namespace DoggyDaycare.Models
             Id = id;
         }
 
-        private void SetName(string name)
+        internal void SetName(string name)
         {
-            if (name.Length == 0)
-            {
-                
-            }
-
             Name = name;
         }
 
@@ -71,28 +66,18 @@ namespace DoggyDaycare.Models
             Status = status;
         }
 
-        private void SetBreedType(string breedType)
+        internal void SetBreedType(string breedType)
         {   
             BreedType = breedType;
         }
 
-        private void SetPricePerHour(float pricePerHour)
+        internal void SetPricePerHour(float pricePerHour)
         {
-            if (pricePerHour == 0)
-            {
-                
-            }
-
             PricePerHour = pricePerHour;
         }
 
-        private void SetMaxCapacityPerSlot(int maxCapacityPerSlot)
+        internal void SetMaxCapacityPerSlot(int maxCapacityPerSlot)
         {
-            if (maxCapacityPerSlot == 0)
-            {
-
-            }
-            
             MaxCapacityPerSlot = maxCapacityPerSlot;
         }
 

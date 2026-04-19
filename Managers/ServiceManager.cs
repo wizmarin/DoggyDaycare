@@ -6,13 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using DoggyDaycare.Data.Mappers;
 using DoggyDaycare.Data.Repositories;
-using DoggyDaycare.Models;
 using DoggyDaycare.Exceptions;
+using DoggyDaycare.Forms;
+using DoggyDaycare.Models;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace DoggyDaycare.Managers
 {
     internal class ServiceManager
     {
+        private static frmMain mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+        private static frmServices servicesForm = Application.OpenForms.OfType<frmServices>().FirstOrDefault();
+        private static string loadOption;
+
         internal static List<Service> GetAllServices()
         {
             DataSet ds = ServiceRepo.GetAll();
@@ -71,6 +77,83 @@ namespace DoggyDaycare.Managers
             return result;
         }
 
+        internal static void LoadUpdateForm(Service service)
+        {
+            if (service == null)
+            {
+                throw new NoSelectionException("No service selected. Please select a service to update.");
+            }
+            else
+            {
+                loadOption = "Hide";
+                mainForm.OpenChildForm(new frmUpdateService(service), loadOption);
+            }
+        }
+
+        internal static void UpdateService(Service service, string name, string breedType, float pricePerHour, int maxCapacityPerSlot)
+        {
+            string message = IsValidInput(name, pricePerHour, maxCapacityPerSlot);
+
+            if (message != "valid")
+            {
+                MessageBox.Show(message, "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            message = $"You are about to update service:\n\n{service.ToString()}\n\nWith the following details:\n\n";
+
+            if (service.Name != name)
+            {
+                message += $"Name: {name}\n";
+            }
+
+            if (service.BreedType != breedType)
+            {
+                message += $"Breed Type: {breedType}\n";
+            }
+
+            if (service.PricePerHour != pricePerHour)
+            {
+                message += $"Price Per Hour: {pricePerHour}\n";
+            }
+
+            if (service.MaxCapacityPerSlot != maxCapacityPerSlot)
+            {
+                message += $"Max Capacity Per Slot: {maxCapacityPerSlot}\n";
+            }
+
+            message += "\nWould you like to proceed with the update?";
+
+            DialogResult result = MessageBox.Show(message, "Confirm Update", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Cancel)
+            {
+                loadOption = "Close";
+                mainForm.OpenChildForm(servicesForm, loadOption);
+                return;
+            }
+            else if (result == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                service.SetName(name);
+                service.SetBreedType(breedType);
+                service.SetPricePerHour(pricePerHour);
+                service.SetMaxCapacityPerSlot(maxCapacityPerSlot);
+                
+                ServiceRepo.Update(service);
+                
+                MessageBox.Show("Service has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                servicesForm.UpdateDataSource(service, "update");
+
+                loadOption = "Close";
+                mainForm.OpenChildForm(servicesForm, loadOption);
+            }
+        }
+
         internal static void DeactivateService(Service service)
         {
             // TODO: Implement a check to see if there are any active or future bookings for this service before deactivating it. If there are, throw an exception.
@@ -87,7 +170,7 @@ namespace DoggyDaycare.Managers
                 
                 if (result == DialogResult.Cancel)
                 {
-                    MessageBox.Show("Deactivation process was aborted.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    throw new DeactivationAbortedException();
                 }
                 else
                 {
@@ -96,5 +179,71 @@ namespace DoggyDaycare.Managers
                 }
             }
         }
+
+        private static string IsValidInput(string name, float price, int capacity)
+        {
+            string nameValidation = IsValidName(name);
+            string priceValidation = IsValidPrice(price);
+            string capacityValidation = IsValidCapacity(capacity);
+
+            if (nameValidation == "valid" && priceValidation == "valid" && capacityValidation == "valid")
+            {
+                return "valid";
+            }
+            
+            string errorMessage = "Please correct the following errors:\n\n";
+
+            if (nameValidation != "valid")
+            {
+                errorMessage += nameValidation + "\n";
+            }
+            if (priceValidation != "valid")
+            {
+                errorMessage += priceValidation + "\n";
+            }
+            if (capacityValidation != "valid")
+            {
+                errorMessage += capacityValidation + "\n";
+            }
+
+            return errorMessage;
+        }
+
+        private static string IsValidName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return "Service name cannot be empty.";
+            }
+            else
+            {
+                return "valid";
+            }
+        }
+
+        private static string IsValidPrice(float price)
+        {
+            if (price <= 0)
+            {
+                return "Price per hour must be greater than zero.";
+            }
+            else
+            {
+                return "valid";
+            }
+        }
+
+        private static string IsValidCapacity(int capacity)
+        {
+            if (capacity <= 0)
+            {
+                return "Max capacity per slot must be greater than zero.";
+            }
+            else
+            {
+                return "valid";
+            }
+        }
+
     }
 }
