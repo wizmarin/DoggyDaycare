@@ -84,6 +84,7 @@
             btnAddService.TabIndex = 9;
             btnAddService.Text = "Add Service";
             btnAddService.UseVisualStyleBackColor = true;
+            btnAddService.Click += btnAddService_Click;
             // 
             // tlpFormContent
             // 
@@ -176,13 +177,13 @@
             // cmbBreedType
             // 
             cmbBreedType.Dock = DockStyle.Fill;
+            cmbBreedType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBreedType.FormattingEnabled = true;
             cmbBreedType.Items.AddRange(new object[] { "Small", "Medium", "Big" });
             cmbBreedType.Location = new Point(8, 74);
             cmbBreedType.Name = "cmbBreedType";
             cmbBreedType.Size = new Size(344, 27);
             cmbBreedType.TabIndex = 5;
-            cmbBreedType.Text = "Medium";
             // 
             // nudPrice
             // 
@@ -212,6 +213,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmAddService";
             Text = "frmAddService";
+            Load += frmAddService_Load;
             pnlMain.ResumeLayout(false);
             tlpFormContent.ResumeLayout(false);
             tlpFormContent.PerformLayout();

@@ -209,9 +209,9 @@
             // 
             // pnlAdminButton
             // 
+            pnlAdminButton.Controls.Add(btnAddService);
             pnlAdminButton.Controls.Add(btnReportCustomerBookings);
             pnlAdminButton.Controls.Add(btnReportDailyBookings);
-            pnlAdminButton.Controls.Add(btnAddService);
             pnlAdminButton.Controls.Add(btnAdmin);
             pnlAdminButton.Dock = DockStyle.Top;
             pnlAdminButton.Location = new Point(0, 210);
@@ -229,7 +229,7 @@
             btnReportCustomerBookings.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnReportCustomerBookings.ForeColor = Color.FromArgb(225, 183, 186);
             btnReportCustomerBookings.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportCustomerBookings.Location = new Point(0, 120);
+            btnReportCustomerBookings.Location = new Point(0, 85);
             btnReportCustomerBookings.Margin = new Padding(0);
             btnReportCustomerBookings.Name = "btnReportCustomerBookings";
             btnReportCustomerBookings.Padding = new Padding(25, 0, 0, 0);
@@ -251,7 +251,7 @@
             btnReportDailyBookings.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnReportDailyBookings.ForeColor = Color.FromArgb(225, 183, 186);
             btnReportDailyBookings.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportDailyBookings.Location = new Point(0, 70);
+            btnReportDailyBookings.Location = new Point(0, 35);
             btnReportDailyBookings.Margin = new Padding(0);
             btnReportDailyBookings.Name = "btnReportDailyBookings";
             btnReportDailyBookings.Padding = new Padding(25, 0, 0, 0);
@@ -273,7 +273,7 @@
             btnAddService.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnAddService.ForeColor = Color.FromArgb(225, 183, 186);
             btnAddService.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddService.Location = new Point(0, 35);
+            btnAddService.Location = new Point(0, 135);
             btnAddService.Margin = new Padding(0);
             btnAddService.Name = "btnAddService";
             btnAddService.Padding = new Padding(25, 0, 0, 0);

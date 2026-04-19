@@ -90,13 +90,50 @@ namespace DoggyDaycare.Managers
             }
         }
 
+        internal static void AddService(string name, string breedType, float pricePerHour, int maxCapacityPerSlot)
+        {
+            string message = IsValidInput(name, pricePerHour, maxCapacityPerSlot);
+
+            if (message != "valid")
+            {
+                MessageBox.Show(message, "Input Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Service newService = new Service(name, breedType, pricePerHour, maxCapacityPerSlot);
+
+            message = $"You are about to add the following service:\n\n{newService.ToString()}\n\nWould you like to proceed?";
+
+            DialogResult result = MessageBox.Show(message, "Confirm Addition", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Cancel)
+            {
+                loadOption = "Close";
+                mainForm.OpenChildForm(new frmServices(), loadOption);
+                return;
+            }
+            else if (result == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                ServiceRepo.Insert(newService);
+
+                MessageBox.Show("Service has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                loadOption = "Close";
+                mainForm.OpenChildForm(new frmServices(), loadOption);
+            }
+        }
+
         internal static void UpdateService(Service service, string name, string breedType, float pricePerHour, int maxCapacityPerSlot)
         {
             string message = IsValidInput(name, pricePerHour, maxCapacityPerSlot);
 
             if (message != "valid")
             {
-                MessageBox.Show(message, "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(message, "Input Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

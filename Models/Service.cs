@@ -26,7 +26,7 @@ namespace DoggyDaycare.Models
 
         public Service(string name, 
                         string breedType, 
-                        int pricePerHour, 
+                        float pricePerHour, 
                         int maxCapacityPerSlot)
         {
             SetStatus("Active");
@@ -40,7 +40,7 @@ namespace DoggyDaycare.Models
                         string status, 
                         string name, 
                         string breedType, 
-                        int pricePerHour, 
+                        float pricePerHour, 
                         int maxCapacityPerSlot)
         {
             SetId(id);
