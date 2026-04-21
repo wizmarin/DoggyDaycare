@@ -55,6 +55,7 @@
             btnRegisterCustomer.TabIndex = 12;
             btnRegisterCustomer.Text = "Register Customer";
             btnRegisterCustomer.UseVisualStyleBackColor = true;
+            btnRegisterCustomer.Click += btnRegisterCustomer_Click;
             // 
             // tlpFormContent
             // 
@@ -152,10 +153,10 @@
             // 
             txtPhone.Dock = DockStyle.Fill;
             txtPhone.Location = new Point(8, 80);
-            txtPhone.MaxLength = 10;
+            txtPhone.MaxLength = 12;
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(344, 29);
-            txtPhone.TabIndex = 9;
+            txtPhone.TabIndex = 8;
             // 
             // txtEmail
             // 
@@ -164,7 +165,7 @@
             txtEmail.MaxLength = 255;
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(344, 29);
-            txtEmail.TabIndex = 8;
+            txtEmail.TabIndex = 9;
             // 
             // txtEmergencyContact
             // 
@@ -179,7 +180,7 @@
             // 
             txtEmergencyContactPhone.Dock = DockStyle.Fill;
             txtEmergencyContactPhone.Location = new Point(8, 247);
-            txtEmergencyContactPhone.MaxLength = 10;
+            txtEmergencyContactPhone.MaxLength = 14;
             txtEmergencyContactPhone.Name = "txtEmergencyContactPhone";
             txtEmergencyContactPhone.Size = new Size(344, 29);
             txtEmergencyContactPhone.TabIndex = 11;

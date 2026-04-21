@@ -232,15 +232,15 @@ namespace DoggyDaycare.Managers
 
             if (nameValidation != "valid")
             {
-                errorMessage += nameValidation + "\n";
+                errorMessage += "Service Name: " + nameValidation + "\n";
             }
             if (priceValidation != "valid")
             {
-                errorMessage += priceValidation + "\n";
+                errorMessage += "Price: " + priceValidation + "\n";
             }
             if (capacityValidation != "valid")
             {
-                errorMessage += capacityValidation + "\n";
+                errorMessage += "Max Capacity: " + capacityValidation + "\n";
             }
 
             return errorMessage;

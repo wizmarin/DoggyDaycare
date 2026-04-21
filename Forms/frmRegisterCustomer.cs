@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DoggyDaycare.Managers;
 
 namespace DoggyDaycare.Forms
 {
@@ -15,6 +16,11 @@ namespace DoggyDaycare.Forms
         public frmRegisterCustomer()
         {
             InitializeComponent();
+        }
+
+        private void btnRegisterCustomer_Click(object sender, EventArgs e)
+        {
+            CustomerManager.RegisterCustomer(txtFullName.Text, txtEmail.Text, txtPhone.Text, txtEmergencyContact.Text, txtEmergencyContactPhone.Text);
         }
     }
 }
