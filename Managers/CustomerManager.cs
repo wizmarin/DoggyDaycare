@@ -42,7 +42,7 @@ namespace DoggyDaycare.Managers
 
         internal static void RegisterCustomer(string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
         {
-            string message = IsValidInput(fullName, email, phone, emergencyContactName, emergencyContactPhone);
+            string message = IsValidInput(default, fullName, email, phone, emergencyContactName, emergencyContactPhone);
 
             if (message != "valid")
             {
@@ -90,11 +90,77 @@ namespace DoggyDaycare.Managers
 
         internal static void UpdateCustomer(Customer customer, string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
         {
+            string message = IsValidInput(customer, fullName, email, phone, emergencyContactName, emergencyContactPhone);
 
+            if (message != "valid")
+            {
+                MessageBox.Show(message, "Input Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            message = $"You are about to update the customer:\n\n{customer.ToString()}\n\nWith the following details:\n\n";
+
+            if (customer.FullName != fullName)
+            {
+                message += $"Full Name: {fullName}\n";
+            }
+
+            if (customer.Email != email)
+            {
+                message += $"Email: {email}\n";
+            }
+
+            if (customer.PhoneNumber != phone)
+            {
+                message += $"Phone: {phone}\n";
+            }
+
+            if (customer.EmergencyContactName != emergencyContactName)
+            {
+                message += $"Emergency Contact Name: {emergencyContactName}\n";
+            }
+
+            if (customer.EmergencyContactPhone != emergencyContactPhone)
+            {
+                message += $"Emergency Contact Phone: {emergencyContactPhone}\n";
+            }
+
+            message += "\nWould you like to proceed with the update?";
+
+            DialogResult result = MessageBox.Show(message, "Confirm Update", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Cancel)
+            {
+                loadOption = "Close";
+                mainForm.OpenChildForm(customersForm, loadOption);
+                return;
+            }
+            else if (result == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                customer.SetFullName(fullName);
+                customer.SetEmail(email);
+                customer.SetPhoneNumber(phone);
+                customer.SetEmergencyContactName(emergencyContactName);
+                customer.SetEmergencyContactPhone(emergencyContactPhone);
+
+                CustomerRepo.Update(customer);
+
+                MessageBox.Show("Customer has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                customersForm.UpdateDataSource(customer, "update");
+
+                loadOption = "Close";
+                mainForm.OpenChildForm(customersForm, loadOption);
+            }
         }
 
         internal static void DeactivateCustomer(Customer customer)
         {
+            // TODO: Implement check for active reservations for assigned pets and display message to user if there are any active reservations, preventing deactivation of customer until all active reservations are resolved
             // TODO: Implement part with deactivating all assigned pets
 
             if (customer == null)
@@ -103,11 +169,23 @@ namespace DoggyDaycare.Managers
             }
             else
             {
-                CustomerRepo.Deactivate(customer.Id);
+                string message = $"You are about to deactivate customer:\n\n{customer.ToString()}\n\nThis action cannot be undone.";
+                
+                DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Cancel)
+                {
+                    throw new DeactivationAbortedException();
+                }
+                else 
+                {
+                    CustomerRepo.Deactivate(customer.Id);
+                    MessageBox.Show("Customer has been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
-        private static string IsValidInput(string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
+        private static string IsValidInput(Customer customer, string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
         {
             string fullNameValidation = IsValidFullName(fullName);
             string emailValidation = IsValidEmail(email);
@@ -115,8 +193,8 @@ namespace DoggyDaycare.Managers
             string emergencyContactNameValidation = IsValidEmergencyContactName(emergencyContactName);
             string emergencyContactPhoneValidation = IsValidEmergencyContactPhone(emergencyContactPhone);
 
-            string uniquePhoneValidation = IsUniquePhone(phone);
-            string uniqueEmailValidation = IsUniqueEmail(email);
+            string uniquePhoneValidation = IsUniquePhone(phone, customer);
+            string uniqueEmailValidation = IsUniqueEmail(email, customer);
 
             if (fullNameValidation == "valid" &&
                 emailValidation == "valid" &&
@@ -264,12 +342,17 @@ namespace DoggyDaycare.Managers
             return "valid";
         }
 
-        private static string IsUniquePhone(string phone)
+        private static string IsUniquePhone(string phone, Customer? customer)
         {
             OracleDataReader reader = CustomerRepo.GetByPhone(phone);
             List<Customer> customers = OracleDataReaderMapper.MapToList<Customer>(reader);
-            
-            if (customers.Count > 0)
+
+            if (customer == null && customers.Count > 0) 
+            {
+                return "Phone number already exists. Please enter a unique phone number.";
+            }
+
+            if (customer != null && customers.Any(c => c.Id != customer.Id))
             {
                 return "Phone number already exists. Please enter a unique phone number.";
             }
@@ -277,12 +360,17 @@ namespace DoggyDaycare.Managers
             return "valid";
         }
 
-        private static string IsUniqueEmail(string email)
+        private static string IsUniqueEmail(string email, Customer? customer)
         {
             OracleDataReader reader = CustomerRepo.GetByEmail(email);
             List<Customer> customers = OracleDataReaderMapper.MapToList<Customer>(reader);
 
-            if (customers.Count > 0)
+            if (customer == null && customers.Count > 0) 
+            {
+                return "Email already exists. Please enter a unique email.";
+            }
+
+            if (customer != null && customers.Any(c => c.Id != customer.Id))
             {
                 return "Email already exists. Please enter a unique email.";
             }
@@ -291,4 +379,5 @@ namespace DoggyDaycare.Managers
         }
 
     }
-}
+}           
+      

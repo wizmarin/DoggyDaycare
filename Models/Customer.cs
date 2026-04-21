@@ -97,7 +97,7 @@ namespace DoggyDaycare.Models
             return $"Customer ID: {Id}\nFull Name: {FullName}\nEmail: {Email}\nPhone: {PhoneNumberDisplay(PhoneNumber)}\nEmergency Contact: {EmergencyContactNameDisplay(EmergencyContactName)}\nEmergency Contact Phone: {PhoneNumberDisplay(EmergencyContactPhone)}";
         }
 
-        private string PhoneNumberDisplay(string phoneNumber)
+        internal string PhoneNumberDisplay(string phoneNumber)
         {
             if (string.IsNullOrEmpty(phoneNumber))
             {
@@ -107,7 +107,7 @@ namespace DoggyDaycare.Models
             return $"({phoneNumber[0..3]}) {phoneNumber[3..6]}-{phoneNumber[6..10]}";
         }
 
-        private string EmergencyContactNameDisplay(string emergencyContactName)
+        internal string EmergencyContactNameDisplay(string emergencyContactName)
         {
             if (string.IsNullOrEmpty(emergencyContactName))
             {

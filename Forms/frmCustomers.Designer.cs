@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlCustomerInfo = new Panel();
             tlpCustomerInfo = new TableLayoutPanel();
             lblPhone = new Label();
@@ -35,7 +37,7 @@
             lblCustomerID = new Label();
             lblEmail = new Label();
             lblEmergencyContact = new Label();
-            lblEmergenceContactPhone = new Label();
+            lblEmergencyContactPhone = new Label();
             btnAssignedPetsLabel = new Button();
             lblPetsIDs = new Label();
             btnUpdateInformation = new Button();
@@ -77,7 +79,7 @@
             tlpCustomerInfo.Controls.Add(lblCustomerID, 0, 0);
             tlpCustomerInfo.Controls.Add(lblEmail, 0, 3);
             tlpCustomerInfo.Controls.Add(lblEmergencyContact, 0, 4);
-            tlpCustomerInfo.Controls.Add(lblEmergenceContactPhone, 0, 5);
+            tlpCustomerInfo.Controls.Add(lblEmergencyContactPhone, 0, 5);
             tlpCustomerInfo.Controls.Add(btnAssignedPetsLabel, 0, 6);
             tlpCustomerInfo.Controls.Add(lblPetsIDs, 0, 7);
             tlpCustomerInfo.Controls.Add(btnUpdateInformation, 0, 9);
@@ -158,16 +160,16 @@
             lblEmergencyContact.TabIndex = 4;
             lblEmergencyContact.Text = "Emenrgency Contact: ";
             // 
-            // lblEmergenceContactPhone
+            // lblEmergencyContactPhone
             // 
-            lblEmergenceContactPhone.AutoSize = true;
-            lblEmergenceContactPhone.Dock = DockStyle.Fill;
-            lblEmergenceContactPhone.Font = new Font("Gadugi", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEmergenceContactPhone.Location = new Point(8, 100);
-            lblEmergenceContactPhone.Name = "lblEmergenceContactPhone";
-            lblEmergenceContactPhone.Size = new Size(282, 19);
-            lblEmergenceContactPhone.TabIndex = 7;
-            lblEmergenceContactPhone.Text = "Emergency Contact Phone: ";
+            lblEmergencyContactPhone.AutoSize = true;
+            lblEmergencyContactPhone.Dock = DockStyle.Fill;
+            lblEmergencyContactPhone.Font = new Font("Gadugi", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblEmergencyContactPhone.Location = new Point(8, 100);
+            lblEmergencyContactPhone.Name = "lblEmergencyContactPhone";
+            lblEmergencyContactPhone.Size = new Size(282, 19);
+            lblEmergencyContactPhone.TabIndex = 7;
+            lblEmergencyContactPhone.Text = "Emergency Contact Phone: ";
             // 
             // btnAssignedPetsLabel
             // 
@@ -203,6 +205,7 @@
             btnUpdateInformation.TabIndex = 5;
             btnUpdateInformation.Text = "Update Information";
             btnUpdateInformation.UseVisualStyleBackColor = true;
+            btnUpdateInformation.Click += btnUpdateInformation_Click;
             // 
             // btnDeactivate
             // 
@@ -213,6 +216,7 @@
             btnDeactivate.TabIndex = 6;
             btnDeactivate.Text = "Deactivate";
             btnDeactivate.UseVisualStyleBackColor = true;
+            btnDeactivate.Click += btnDeactivate_Click;
             // 
             // btnCustomerInfoLabel
             // 
@@ -259,13 +263,32 @@
             dgvResult.AllowUserToResizeColumns = false;
             dgvResult.AllowUserToResizeRows = false;
             dgvResult.BackgroundColor = Color.FromArgb(246, 244, 246);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvResult.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvResult.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(34, 24, 28);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvResult.DefaultCellStyle = dataGridViewCellStyle2;
             dgvResult.Dock = DockStyle.Fill;
             dgvResult.Location = new Point(5, 5);
+            dgvResult.MultiSelect = false;
             dgvResult.Name = "dgvResult";
             dgvResult.ReadOnly = true;
+            dgvResult.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvResult.Size = new Size(716, 513);
             dgvResult.TabIndex = 2;
+            dgvResult.SelectionChanged += dgvResult_SelectionChanged;
             // 
             // tlpSearchControls
             // 
@@ -311,6 +334,7 @@
             btnSearch.Text = "Search";
             btnSearch.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // txtSearch
             // 
@@ -349,6 +373,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmCustomers";
             Text = "frmCustomers";
+            Load += frmCustomers_Load;
             pnlCustomerInfo.ResumeLayout(false);
             tlpCustomerInfo.ResumeLayout(false);
             tlpCustomerInfo.PerformLayout();
@@ -380,7 +405,7 @@
         private Label lblEmergencyContact;
         private Button btnUpdateInformation;
         private Button btnDeactivate;
-        private Label lblEmergenceContactPhone;
+        private Label lblEmergencyContactPhone;
         private Button btnAssignedPetsLabel;
         private Label lblPetsIDs;
     }

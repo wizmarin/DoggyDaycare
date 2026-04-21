@@ -7,15 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DoggyDaycare.Managers;
 using DoggyDaycare.Models;
 
 namespace DoggyDaycare.Forms
 {
     public partial class frmUpdateCustomer : Form
     {
+        private Customer customer;
+
         public frmUpdateCustomer(Customer customer)
         {
             InitializeComponent();
+            this.customer = customer;
+        }
+
+        private void frmUpdateCustomer_Load(object sender, EventArgs e)
+        {
+            txtFullName.Text = customer.FullName;
+            txtPhone.Text = customer.PhoneNumber;
+            txtEmail.Text = customer.Email;
+            txtEmergencyContact.Text = customer.EmergencyContactName;
+            txtEmergencyContactPhone.Text = customer.EmergencyContactPhone;
+        }
+
+        private void btnUpdateCustomer_Click(object sender, EventArgs e)
+        {
+            CustomerManager.UpdateCustomer(customer, txtFullName.Text, txtEmail.Text, txtPhone.Text, txtEmergencyContact.Text, txtEmergencyContactPhone.Text);
         }
     }
 }
