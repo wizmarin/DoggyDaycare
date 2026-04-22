@@ -13,12 +13,8 @@ using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace DoggyDaycare.Managers
 {
-    internal class ServiceManager
+    internal static class ServiceManager
     {
-        private static frmMain mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
-        private static frmServices servicesForm = Application.OpenForms.OfType<frmServices>().FirstOrDefault();
-        private static string loadOption;
-
         internal static List<Service> GetAllServices()
         {
             DataSet ds = ServiceRepo.GetAll();
@@ -85,7 +81,9 @@ namespace DoggyDaycare.Managers
             }
             else
             {
-                loadOption = "Hide";
+                var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+                var loadOption = "Hide";
+
                 mainForm.OpenChildForm(new frmUpdateService(service), loadOption);
             }
         }
@@ -106,9 +104,11 @@ namespace DoggyDaycare.Managers
 
             DialogResult result = MessageBox.Show(message, "Confirm Addition", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var loadOption = "Close";
+
             if (result == DialogResult.Cancel)
             {
-                loadOption = "Close";
                 mainForm.OpenChildForm(new frmServices(), loadOption);
                 return;
             }
@@ -122,7 +122,6 @@ namespace DoggyDaycare.Managers
 
                 MessageBox.Show("Service has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                loadOption = "Close";
                 mainForm.OpenChildForm(new frmServices(), loadOption);
             }
         }
@@ -163,9 +162,12 @@ namespace DoggyDaycare.Managers
 
             DialogResult result = MessageBox.Show(message, "Confirm Update", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var servicesForm = Application.OpenForms.OfType<frmServices>().FirstOrDefault();
+            var loadOption = "Close";
+
             if (result == DialogResult.Cancel)
             {
-                loadOption = "Close";
                 mainForm.OpenChildForm(servicesForm, loadOption);
                 return;
             }
@@ -179,14 +181,13 @@ namespace DoggyDaycare.Managers
                 service.BreedType = breedType;
                 service.PricePerHour = pricePerHour;
                 service.MaxCapacityPerSlot = maxCapacityPerSlot;
-                
+
                 ServiceRepo.Update(service);
-                
+
                 MessageBox.Show("Service has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 servicesForm.UpdateDataSource(service, "update");
 
-                loadOption = "Close";
                 mainForm.OpenChildForm(servicesForm, loadOption);
             }
         }

@@ -9,7 +9,7 @@ using DoggyDaycare.Data.Attributes;
 
 namespace DoggyDaycare.Data.Mappers
 {
-    internal class DataSetMapper
+    internal static class DataSetMapper
     {
         internal static List<T> MapToList<T>(DataSet ds) where T : new()
         {

@@ -9,7 +9,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DoggyDaycare.Data.Mappers
 {
-    internal class OracleDataReaderMapper
+    internal static class OracleDataReaderMapper
     {
         internal static List<T> MapToList<T>(OracleDataReader reader) where T : new()
         {

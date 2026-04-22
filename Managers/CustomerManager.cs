@@ -14,12 +14,8 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DoggyDaycare.Managers
 {
-    internal class CustomerManager
+    internal static class CustomerManager
     {
-        private static frmMain mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
-        private static frmCustomers customersForm = Application.OpenForms.OfType<frmCustomers>().FirstOrDefault();
-        private static string loadOption;
-
         internal static List<Customer> GetAllCustomers()
         {
             DataSet ds = CustomerRepo.GetAll();
@@ -35,7 +31,9 @@ namespace DoggyDaycare.Managers
             }
             else
             {
-                loadOption = "Hide";
+                var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+                var loadOption = "Hide";
+
                 mainForm.OpenChildForm(new frmUpdateCustomer(customer), loadOption);
             }
         }
@@ -67,10 +65,13 @@ namespace DoggyDaycare.Managers
 
             DialogResult result = MessageBox.Show(message, "Confirm Registration", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var loadOption = "Close";
+
             if (result == DialogResult.Cancel)
             {
-                loadOption = "Close";
                 mainForm.OpenChildForm(new frmCustomers(), loadOption);
+
                 return;
             }
             else if (result == DialogResult.No)
@@ -83,7 +84,6 @@ namespace DoggyDaycare.Managers
 
                 MessageBox.Show("Customer has been registered successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                loadOption = "Close";
                 mainForm.OpenChildForm(new frmCustomers(), loadOption);
             }
         }
@@ -129,9 +129,12 @@ namespace DoggyDaycare.Managers
 
             DialogResult result = MessageBox.Show(message, "Confirm Update", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var customersForm = Application.OpenForms.OfType<frmCustomers>().FirstOrDefault();
+            var loadOption = "Close";
+
             if (result == DialogResult.Cancel)
             {
-                loadOption = "Close";
                 mainForm.OpenChildForm(customersForm, loadOption);
                 return;
             }
@@ -153,7 +156,6 @@ namespace DoggyDaycare.Managers
 
                 customersForm.UpdateDataSource(customer, "update");
 
-                loadOption = "Close";
                 mainForm.OpenChildForm(customersForm, loadOption);
             }
         }
