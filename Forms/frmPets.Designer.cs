@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlPetInfo = new Panel();
             tlpPetInfo = new TableLayoutPanel();
             lblPetID = new Label();
@@ -257,6 +259,7 @@
             btnUpdateInformation.TabIndex = 13;
             btnUpdateInformation.Text = "Update Information";
             btnUpdateInformation.UseVisualStyleBackColor = true;
+            btnUpdateInformation.Click += btnUpdateInformation_Click;
             // 
             // btnDeactivate
             // 
@@ -268,6 +271,7 @@
             btnDeactivate.TabIndex = 14;
             btnDeactivate.Text = "Deactivate";
             btnDeactivate.UseVisualStyleBackColor = true;
+            btnDeactivate.Click += btnDeactivate_Click;
             // 
             // btnPetInfoLabel
             // 
@@ -314,13 +318,32 @@
             dgvResult.AllowUserToResizeColumns = false;
             dgvResult.AllowUserToResizeRows = false;
             dgvResult.BackgroundColor = Color.FromArgb(246, 244, 246);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvResult.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvResult.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Gadugi", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(34, 24, 28);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvResult.DefaultCellStyle = dataGridViewCellStyle2;
             dgvResult.Dock = DockStyle.Fill;
             dgvResult.Location = new Point(5, 5);
+            dgvResult.MultiSelect = false;
             dgvResult.Name = "dgvResult";
             dgvResult.ReadOnly = true;
+            dgvResult.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvResult.Size = new Size(716, 513);
             dgvResult.TabIndex = 2;
+            dgvResult.SelectionChanged += dgvResult_SelectionChanged;
             // 
             // tlpSearchControls
             // 
@@ -366,6 +389,7 @@
             btnSearch.Text = "Search";
             btnSearch.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // txtSearch
             // 
@@ -404,6 +428,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmPets";
             Text = "frmPets";
+            Load += frmPets_Load;
             pnlPetInfo.ResumeLayout(false);
             tlpPetInfo.ResumeLayout(false);
             tlpPetInfo.PerformLayout();
