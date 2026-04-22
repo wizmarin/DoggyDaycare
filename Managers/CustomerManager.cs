@@ -141,11 +141,11 @@ namespace DoggyDaycare.Managers
             }
             else
             {
-                customer.SetFullName(fullName);
-                customer.SetEmail(email);
-                customer.SetPhoneNumber(phone);
-                customer.SetEmergencyContactName(emergencyContactName);
-                customer.SetEmergencyContactPhone(emergencyContactPhone);
+                customer.FullName = fullName;
+                customer.Email = email;
+                customer.PhoneNumber = phone;
+                customer.EmergencyContactName = emergencyContactName;
+                customer.EmergencyContactPhone = emergencyContactPhone;
 
                 CustomerRepo.Update(customer);
 

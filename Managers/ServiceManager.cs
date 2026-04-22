@@ -175,10 +175,10 @@ namespace DoggyDaycare.Managers
             }
             else
             {
-                service.SetName(name);
-                service.SetBreedType(breedType);
-                service.SetPricePerHour(pricePerHour);
-                service.SetMaxCapacityPerSlot(maxCapacityPerSlot);
+                service.Name = name;
+                service.BreedType = breedType;
+                service.PricePerHour = pricePerHour;
+                service.MaxCapacityPerSlot = maxCapacityPerSlot;
                 
                 ServiceRepo.Update(service);
                 

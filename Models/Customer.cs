@@ -10,9 +10,9 @@ namespace DoggyDaycare.Models
     public class Customer
     {
         [ColumnName("CUSTOMER_ID")]
-        public int Id { get; set; }
+        public int Id { get; private set; }
         [ColumnName("STATUS")]
-        public string Status { get; set; }
+        public string Status { get; private set; }
         [ColumnName("FULL_NAME")]
         public string FullName { get; set; }
         [ColumnName("EMAIL")]
@@ -32,12 +32,12 @@ namespace DoggyDaycare.Models
                         string? emergencyContactName = null,
                         string? emergencyContactPhone = null)
         {
-            SetStatus("Active");
-            SetFullName(fullName);
-            SetEmail(email);
-            SetPhoneNumber(phoneNumber);
-            SetEmergencyContactName(emergencyContactName);
-            SetEmergencyContactPhone(emergencyContactPhone);
+            Status = "Active";
+            FullName = fullName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            EmergencyContactName = emergencyContactName;
+            EmergencyContactPhone = emergencyContactPhone;
         }
 
         public Customer(int id,
@@ -48,47 +48,12 @@ namespace DoggyDaycare.Models
                         string? emergencyContactName = null,
                         string? emergencyContactPhone = null)
         {
-            SetId(id);
-            SetStatus(status);
-            SetFullName(fullName);
-            SetEmail(email);
-            SetPhoneNumber(phoneNumber);
-            SetEmergencyContactName(emergencyContactName);
-            SetEmergencyContactPhone(emergencyContactPhone);
-        }
-
-        private void SetId(int id)
-        {
             Id = id;
-        }
-
-        private void SetStatus(string status)
-        {
             Status = status;
-        }
-
-        internal void SetFullName(string fullName)
-        {
             FullName = fullName;
-        }
-
-        internal void SetEmail(string email)
-        {
             Email = email;
-        }
-
-        internal void SetPhoneNumber(string phoneNumber)
-        {
             PhoneNumber = phoneNumber;
-        }
-
-        internal void SetEmergencyContactName(string? emergencyContactName)
-        {
             EmergencyContactName = emergencyContactName;
-        }
-
-        internal void SetEmergencyContactPhone(string? emergencyContactPhone)
-        {
             EmergencyContactPhone = emergencyContactPhone;
         }
 
