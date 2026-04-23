@@ -49,18 +49,26 @@ namespace DoggyDaycare.Data.Repositories
 
         internal static void Insert(Pet pet)
         {
+            int day = pet.VetCheckUp.Day;
+            int month = pet.VetCheckUp.Month;
+            int year = pet.VetCheckUp.Year;
+
             string query = $@"
-                INSERT INTO Pets (Status, Owner_Id, Name, Age, Sex, Vet_Check_Up, Feeding_Notes, Medical_Conditions, Socialisation_Level, Known_Triggers, Behavioural_Notes, Additional_Notes)
-                VALUES ('{pet.Status}', {pet.OwnerId}, '{pet.Name}', {pet.Age}, '{pet.Sex}', '{pet.VetCheckUp}', '{pet.FeedingNotes}', '{pet.MedicalConditions}', '{pet.SocialisationLevel}', '{pet.KnownTriggers}', '{pet.BehaviouralNotes}', '{pet.AdditionalNotes}')";
+                INSERT INTO Pets (Status, Owner_Id, Name, Breed_Type, Age, Sex, Vet_Check_Up, Feeding_Notes, Medical_Conditions, Socialisation_Level, Known_Triggers, Behavioural_Notes, Additional_Notes)
+                VALUES ('{pet.Status}', {pet.OwnerId}, '{pet.Name}', '{pet.BreedType}', {pet.Age}, '{pet.Sex}', TO_DATE ('{day}-{month}-{year}', 'DD-MM-YYYY'), '{pet.FeedingNotes}', '{pet.MedicalConditions}', '{pet.SocialisationLevel}', '{pet.KnownTriggers}', '{pet.BehaviouralNotes}', '{pet.AdditionalNotes}')";
 
             _db.ExecuteNonQuery(query);
         }
 
         internal static void Update(Pet pet)
         {
+            int day = pet.VetCheckUp.Day;
+            int month = pet.VetCheckUp.Month;
+            int year = pet.VetCheckUp.Year;
+
             string query = $@"
                 UPDATE Pets
-                SET Owner_Id = {pet.OwnerId}, Name = '{pet.Name}', Age = {pet.Age}, Sex = '{pet.Sex}', Vet_Check_Up = '{pet.VetCheckUp}', Feeding_Notes = '{pet.FeedingNotes}', Medical_Conditions = '{pet.MedicalConditions}', Socialisation_Level = '{pet.SocialisationLevel}', Known_Triggers = '{pet.KnownTriggers}', Behavioural_Notes = '{pet.BehaviouralNotes}', Additional_Notes = '{pet.AdditionalNotes}'
+                SET Owner_Id = {pet.OwnerId}, Name = '{pet.Name}', Breed_Type = {pet.BreedType}, Age = {pet.Age}, Sex = '{pet.Sex}', Vet_Check_Up = TO_DATE ('{day}-{month}-{year}', 'DD-MM-YYYY'), Feeding_Notes = '{pet.FeedingNotes}', Medical_Conditions = '{pet.MedicalConditions}', Socialisation_Level = '{pet.SocialisationLevel}', Known_Triggers = '{pet.KnownTriggers}', Behavioural_Notes = '{pet.BehaviouralNotes}', Additional_Notes = '{pet.AdditionalNotes}'
                 WHERE Pet_Id = {pet.Id}";
 
             _db.ExecuteNonQuery(query);

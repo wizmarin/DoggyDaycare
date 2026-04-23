@@ -24,6 +24,8 @@ namespace DoggyDaycare.Models
         [ColumnName("EMERG_CONTACT_NUMBER")]
         public string? EmergencyContactPhone { get; set; }
 
+        public string Display => $"{FullName} - {PhoneNumberDisplay(PhoneNumber)}";
+
         public Customer() { }
 
         public Customer(string fullName,

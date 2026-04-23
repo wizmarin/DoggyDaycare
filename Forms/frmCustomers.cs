@@ -19,6 +19,7 @@ namespace DoggyDaycare.Forms
         private bool _isDataLoading = false;
         private Customer selected;
         private List<Customer> dataSource;
+        private List<Pet> pets;
 
         public frmCustomers()
         {
@@ -57,8 +58,10 @@ namespace DoggyDaycare.Forms
             lblPhone.Text = $"Phone: {selected.PhoneNumberDisplay(selected.PhoneNumber)}";
             lblEmergencyContact.Text = $"Emergency Contact: {selected.EmergencyContactNameDisplay(selected.EmergencyContactName)}";
             lblEmergencyContactPhone.Text = $"Emergency Contact Phone: {selected.PhoneNumberDisplay(selected.EmergencyContactPhone)}";
+            lblPets.Text = "";
 
-            // TODO: Implement showing the customer's dogs in a listbox or similar control
+            pets = PetManager.GetPetsByOwnerId(selected.Id);
+            lblPets.Text = string.Join(", ", pets.Select(p => p.Name));
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -150,6 +153,7 @@ namespace DoggyDaycare.Forms
             lblPhone.Text = "Phone: ";
             lblEmergencyContact.Text = "Emergency Contact: ";
             lblEmergencyContactPhone.Text = "Emergency Contact Phone: ";
+            lblPets.Text = "";
         }
 
     }

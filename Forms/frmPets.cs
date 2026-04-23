@@ -52,7 +52,7 @@ namespace DoggyDaycare.Forms
             selected = (Pet)dgvResult.SelectedRows[0].DataBoundItem;
 
             lblPetID.Text = $"Pet ID: {selected.Id}";
-            lblOwner.Text = $"Owner: {selected.OwnerId}";
+            lblOwner.Text = $"Owner: {selected.OwnerDisplay(selected.OwnerId)}";
             lblPetName.Text = $"Pet Name: {selected.Name}";
             lblBreedType.Text = $"Breed Type: {selected.BreedType}";
             lblAge.Text = $"Age: {selected.Age}";

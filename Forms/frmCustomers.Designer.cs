@@ -39,7 +39,7 @@
             lblEmergencyContact = new Label();
             lblEmergencyContactPhone = new Label();
             btnAssignedPetsLabel = new Button();
-            lblPetsIDs = new Label();
+            lblPets = new Label();
             btnUpdateInformation = new Button();
             btnDeactivate = new Button();
             btnCustomerInfoLabel = new Button();
@@ -81,7 +81,7 @@
             tlpCustomerInfo.Controls.Add(lblEmergencyContact, 0, 4);
             tlpCustomerInfo.Controls.Add(lblEmergencyContactPhone, 0, 5);
             tlpCustomerInfo.Controls.Add(btnAssignedPetsLabel, 0, 6);
-            tlpCustomerInfo.Controls.Add(lblPetsIDs, 0, 7);
+            tlpCustomerInfo.Controls.Add(lblPets, 0, 7);
             tlpCustomerInfo.Controls.Add(btnUpdateInformation, 0, 9);
             tlpCustomerInfo.Controls.Add(btnDeactivate, 0, 10);
             tlpCustomerInfo.Dock = DockStyle.Fill;
@@ -185,16 +185,15 @@
             btnAssignedPetsLabel.TextAlign = ContentAlignment.MiddleLeft;
             btnAssignedPetsLabel.UseVisualStyleBackColor = true;
             // 
-            // lblPetsIDs
+            // lblPets
             // 
-            lblPetsIDs.AutoSize = true;
-            lblPetsIDs.Dock = DockStyle.Fill;
-            lblPetsIDs.Font = new Font("Gadugi", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPetsIDs.Location = new Point(8, 154);
-            lblPetsIDs.Name = "lblPetsIDs";
-            lblPetsIDs.Size = new Size(282, 20);
-            lblPetsIDs.TabIndex = 9;
-            lblPetsIDs.Text = "IDs: ";
+            lblPets.AutoSize = true;
+            lblPets.Dock = DockStyle.Fill;
+            lblPets.Font = new Font("Gadugi", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPets.Location = new Point(8, 154);
+            lblPets.Name = "lblPets";
+            lblPets.Size = new Size(282, 20);
+            lblPets.TabIndex = 9;
             // 
             // btnUpdateInformation
             // 
@@ -407,6 +406,6 @@
         private Button btnDeactivate;
         private Label lblEmergencyContactPhone;
         private Button btnAssignedPetsLabel;
-        private Label lblPetsIDs;
+        private Label lblPets;
     }
 }

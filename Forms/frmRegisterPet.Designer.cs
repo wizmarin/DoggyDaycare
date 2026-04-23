@@ -139,7 +139,7 @@
             lblVetCheckUp.Margin = new Padding(3, 5, 3, 0);
             lblVetCheckUp.Name = "lblVetCheckUp";
             lblVetCheckUp.Size = new Size(294, 16);
-            lblVetCheckUp.TabIndex = 22;
+            lblVetCheckUp.TabIndex = 12;
             lblVetCheckUp.Text = "Vet Check-Up:";
             // 
             // lblOwner
@@ -163,7 +163,7 @@
             lblPhone.Margin = new Padding(3, 5, 3, 0);
             lblPhone.Name = "lblPhone";
             lblPhone.Size = new Size(294, 16);
-            lblPhone.TabIndex = 1;
+            lblPhone.TabIndex = 2;
             lblPhone.Text = "Name:";
             // 
             // lblBreedType
@@ -175,7 +175,7 @@
             lblBreedType.Margin = new Padding(3, 5, 3, 0);
             lblBreedType.Name = "lblBreedType";
             lblBreedType.Size = new Size(294, 16);
-            lblBreedType.TabIndex = 2;
+            lblBreedType.TabIndex = 4;
             lblBreedType.Text = "Breed Type:";
             // 
             // lblAge
@@ -187,7 +187,7 @@
             lblAge.Margin = new Padding(3, 5, 3, 0);
             lblAge.Name = "lblAge";
             lblAge.Size = new Size(294, 16);
-            lblAge.TabIndex = 3;
+            lblAge.TabIndex = 6;
             lblAge.Text = "Age:";
             // 
             // txtName
@@ -197,7 +197,7 @@
             txtName.MaxLength = 20;
             txtName.Name = "txtName";
             txtName.Size = new Size(294, 29);
-            txtName.TabIndex = 9;
+            txtName.TabIndex = 3;
             // 
             // lblSex
             // 
@@ -207,28 +207,31 @@
             lblSex.Margin = new Padding(3, 5, 3, 0);
             lblSex.Name = "lblSex";
             lblSex.Size = new Size(30, 16);
-            lblSex.TabIndex = 12;
+            lblSex.TabIndex = 8;
             lblSex.Text = "Sex:";
             // 
             // cmbOwner
             // 
             cmbOwner.Dock = DockStyle.Fill;
+            cmbOwner.DropDownHeight = 60;
             cmbOwner.FormattingEnabled = true;
+            cmbOwner.IntegralHeight = false;
             cmbOwner.Location = new Point(8, 29);
             cmbOwner.Name = "cmbOwner";
             cmbOwner.Size = new Size(294, 27);
-            cmbOwner.TabIndex = 13;
+            cmbOwner.TabIndex = 1;
+            cmbOwner.TextChanged += cmbOwner_TextChanged;
             // 
             // cmbBreedType
             // 
             cmbBreedType.Dock = DockStyle.Fill;
+            cmbBreedType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBreedType.FormattingEnabled = true;
             cmbBreedType.Items.AddRange(new object[] { "Small", "Medium", "Big" });
             cmbBreedType.Location = new Point(8, 141);
             cmbBreedType.Name = "cmbBreedType";
             cmbBreedType.Size = new Size(294, 27);
-            cmbBreedType.TabIndex = 14;
-            cmbBreedType.Text = "Medium";
+            cmbBreedType.TabIndex = 5;
             // 
             // nudAge
             // 
@@ -237,18 +240,18 @@
             nudAge.Maximum = new decimal(new int[] { 30, 0, 0, 0 });
             nudAge.Name = "nudAge";
             nudAge.Size = new Size(294, 29);
-            nudAge.TabIndex = 15;
+            nudAge.TabIndex = 7;
             // 
             // cmbSex
             // 
             cmbSex.Dock = DockStyle.Fill;
+            cmbSex.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSex.FormattingEnabled = true;
             cmbSex.Items.AddRange(new object[] { "Male", "Female" });
             cmbSex.Location = new Point(8, 251);
             cmbSex.Name = "cmbSex";
             cmbSex.Size = new Size(294, 27);
-            cmbSex.TabIndex = 16;
-            cmbSex.Text = "Male";
+            cmbSex.TabIndex = 9;
             // 
             // lblFeedingNotes
             // 
@@ -258,7 +261,7 @@
             lblFeedingNotes.Margin = new Padding(3, 5, 3, 0);
             lblFeedingNotes.Name = "lblFeedingNotes";
             lblFeedingNotes.Size = new Size(95, 16);
-            lblFeedingNotes.TabIndex = 17;
+            lblFeedingNotes.TabIndex = 10;
             lblFeedingNotes.Text = "Feeding Notes:";
             // 
             // lblMedicalConditions
@@ -270,7 +273,7 @@
             lblMedicalConditions.Margin = new Padding(3, 5, 3, 0);
             lblMedicalConditions.Name = "lblMedicalConditions";
             lblMedicalConditions.Size = new Size(294, 16);
-            lblMedicalConditions.TabIndex = 24;
+            lblMedicalConditions.TabIndex = 14;
             lblMedicalConditions.Text = "Medical Conditions:";
             // 
             // lblSocialisationLevel
@@ -282,7 +285,7 @@
             lblSocialisationLevel.Margin = new Padding(3, 5, 3, 0);
             lblSocialisationLevel.Name = "lblSocialisationLevel";
             lblSocialisationLevel.Size = new Size(294, 16);
-            lblSocialisationLevel.TabIndex = 25;
+            lblSocialisationLevel.TabIndex = 16;
             lblSocialisationLevel.Text = "Socialisation Level:";
             // 
             // lblKnownTriggers
@@ -294,7 +297,7 @@
             lblKnownTriggers.Margin = new Padding(3, 5, 3, 0);
             lblKnownTriggers.Name = "lblKnownTriggers";
             lblKnownTriggers.Size = new Size(294, 16);
-            lblKnownTriggers.TabIndex = 26;
+            lblKnownTriggers.TabIndex = 19;
             lblKnownTriggers.Text = "Known Triggers:";
             // 
             // lblBehaviouralNotes
@@ -306,7 +309,7 @@
             lblBehaviouralNotes.Margin = new Padding(3, 5, 3, 0);
             lblBehaviouralNotes.Name = "lblBehaviouralNotes";
             lblBehaviouralNotes.Size = new Size(294, 16);
-            lblBehaviouralNotes.TabIndex = 27;
+            lblBehaviouralNotes.TabIndex = 21;
             lblBehaviouralNotes.Text = "Behavioural Notes:";
             // 
             // lblAdditionalNotes
@@ -318,7 +321,7 @@
             lblAdditionalNotes.Margin = new Padding(3, 5, 3, 0);
             lblAdditionalNotes.Name = "lblAdditionalNotes";
             lblAdditionalNotes.Size = new Size(294, 16);
-            lblAdditionalNotes.TabIndex = 28;
+            lblAdditionalNotes.TabIndex = 23;
             lblAdditionalNotes.Text = "Additional Notes:";
             // 
             // txtMedicalConditions
@@ -328,18 +331,18 @@
             txtMedicalConditions.MaxLength = 50;
             txtMedicalConditions.Name = "txtMedicalConditions";
             txtMedicalConditions.Size = new Size(294, 29);
-            txtMedicalConditions.TabIndex = 29;
+            txtMedicalConditions.TabIndex = 15;
             // 
             // cmbSocialisationLevel
             // 
             cmbSocialisationLevel.Dock = DockStyle.Fill;
+            cmbSocialisationLevel.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSocialisationLevel.FormattingEnabled = true;
             cmbSocialisationLevel.Items.AddRange(new object[] { "Unknown", "Low", "Medium", "High" });
             cmbSocialisationLevel.Location = new Point(328, 141);
             cmbSocialisationLevel.Name = "cmbSocialisationLevel";
             cmbSocialisationLevel.Size = new Size(294, 27);
-            cmbSocialisationLevel.TabIndex = 30;
-            cmbSocialisationLevel.Text = "Unknown\n";
+            cmbSocialisationLevel.TabIndex = 17;
             // 
             // txtKnownTriggers
             // 
@@ -348,7 +351,7 @@
             txtKnownTriggers.MaxLength = 50;
             txtKnownTriggers.Name = "txtKnownTriggers";
             txtKnownTriggers.Size = new Size(294, 29);
-            txtKnownTriggers.TabIndex = 31;
+            txtKnownTriggers.TabIndex = 20;
             // 
             // txtBehaviouralNotes
             // 
@@ -357,7 +360,7 @@
             txtBehaviouralNotes.MaxLength = 50;
             txtBehaviouralNotes.Name = "txtBehaviouralNotes";
             txtBehaviouralNotes.Size = new Size(294, 29);
-            txtBehaviouralNotes.TabIndex = 32;
+            txtBehaviouralNotes.TabIndex = 22;
             // 
             // txtAdditionalNotes
             // 
@@ -366,7 +369,7 @@
             txtAdditionalNotes.MaxLength = 50;
             txtAdditionalNotes.Name = "txtAdditionalNotes";
             txtAdditionalNotes.Size = new Size(294, 29);
-            txtAdditionalNotes.TabIndex = 33;
+            txtAdditionalNotes.TabIndex = 24;
             // 
             // txtFeedingNotes
             // 
@@ -375,18 +378,16 @@
             txtFeedingNotes.MaxLength = 50;
             txtFeedingNotes.Name = "txtFeedingNotes";
             txtFeedingNotes.Size = new Size(294, 29);
-            txtFeedingNotes.TabIndex = 34;
+            txtFeedingNotes.TabIndex = 11;
             // 
             // dtpVetCheckUp
             // 
             dtpVetCheckUp.Dock = DockStyle.Fill;
             dtpVetCheckUp.Location = new Point(328, 29);
-            dtpVetCheckUp.MaxDate = new DateTime(2026, 4, 17, 0, 0, 0, 0);
-            dtpVetCheckUp.MinDate = new DateTime(2025, 4, 17, 0, 0, 0, 0);
             dtpVetCheckUp.Name = "dtpVetCheckUp";
             dtpVetCheckUp.Size = new Size(294, 29);
-            dtpVetCheckUp.TabIndex = 35;
-            dtpVetCheckUp.Value = new DateTime(2026, 4, 17, 0, 0, 0, 0);
+            dtpVetCheckUp.TabIndex = 13;
+            dtpVetCheckUp.Value = new DateTime(2026, 4, 23, 0, 0, 0, 0);
             // 
             // btnRegisterPet
             // 
@@ -396,9 +397,10 @@
             btnRegisterPet.Margin = new Padding(50, 5, 50, 5);
             btnRegisterPet.Name = "btnRegisterPet";
             btnRegisterPet.Size = new Size(300, 30);
-            btnRegisterPet.TabIndex = 13;
+            btnRegisterPet.TabIndex = 25;
             btnRegisterPet.Text = "Register Pet";
             btnRegisterPet.UseVisualStyleBackColor = true;
+            btnRegisterPet.Click += btnRegisterPet_Click;
             // 
             // frmRegisterPet
             // 
@@ -412,6 +414,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmRegisterPet";
             Text = "frmRegisterPet";
+            Load += frmRegisterPet_Load;
             tlpFormContent.ResumeLayout(false);
             tlpFormContent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudAge).EndInit();

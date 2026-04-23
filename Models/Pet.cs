@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DoggyDaycare.Data.Attributes;
+using DoggyDaycare.Managers;
 
 namespace DoggyDaycare.Models
 {
@@ -103,7 +104,13 @@ namespace DoggyDaycare.Models
 
         public string ToString()
         {
-            return $"Pet ID: {Id}\nName: {Name}\nBreed: {BreedType}\nAge: {Age}\nSex {Sex}\nVet Check-Up: {VetCheckUp.ToShortDateString()}\nFeeding Notes: {FeedingNotes}\nMedical Conditions: {MedicalConditions}\nSocialisation Level: {SocialisationLevel}\nKnown Triggers: {KnownTriggers}\nBehavioural Notes: {BehaviouralNotes}\nAdditional Notes: {AdditionalNotes}";
+            return $"Pet ID: {Id}\nOwner: {OwnerDisplay(OwnerId)}\nName: {Name}\nBreed: {BreedType}\nAge: {Age}\nSex {Sex}\nVet Check-Up: {VetCheckUp.ToShortDateString()}\nFeeding Notes: {FeedingNotes}\nMedical Conditions: {MedicalConditions}\nSocialisation Level: {SocialisationLevel}\nKnown Triggers: {KnownTriggers}\nBehavioural Notes: {BehaviouralNotes}\nAdditional Notes: {AdditionalNotes}";
+        }
+
+        internal string OwnerDisplay(int ownerId)
+        {
+            Customer owner = CustomerManager.GetCustomerById(ownerId);
+            return owner.Display;
         }
     }
 }

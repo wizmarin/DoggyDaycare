@@ -23,6 +23,14 @@ namespace DoggyDaycare.Managers
             return customers;
         }
 
+        internal static Customer GetCustomerById(int Id)
+        {
+            OracleDataReader reader = CustomerRepo.GetById(Id);
+            Customer customer = OracleDataReaderMapper.MapToObject<Customer>(reader);
+
+            return customer;
+        }
+
         internal static void LoadUpdateForm(Customer customer)
         {
             if (customer == null)
@@ -163,7 +171,6 @@ namespace DoggyDaycare.Managers
         internal static void DeactivateCustomer(Customer customer)
         {
             // TODO: Implement check for active reservations for assigned pets and display message to user if there are any active reservations, preventing deactivation of customer until all active reservations are resolved
-            // TODO: Implement part with deactivating all assigned pets
 
             if (customer == null)
             {
@@ -171,8 +178,14 @@ namespace DoggyDaycare.Managers
             }
             else
             {
-                string message = $"You are about to deactivate customer:\n\n{customer.ToString()}\n\nThis action cannot be undone.";
-                
+                List<Pet> pets = PetManager.GetPetsByOwnerId(customer.Id);
+
+                string message = $"You are about to deactivate customer:\n\n{customer.ToString()}\n\nFollowing pets are going to be deactivated as well:\n\n";
+
+                message += string.Join(", ", pets.Select(p => p.Name));
+
+                message += ".\n\nThis action cannot be undone.";
+
                 DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Cancel)
@@ -182,7 +195,13 @@ namespace DoggyDaycare.Managers
                 else 
                 {
                     CustomerRepo.Deactivate(customer.Id);
-                    MessageBox.Show("Customer has been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    foreach (Pet pet in pets) 
+                    {
+                        PetRepo.Deactivate(pet.Id);
+                    }
+
+                    MessageBox.Show("Customer and all assigned pets have been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -206,16 +225,14 @@ namespace DoggyDaycare.Managers
                 uniquePhoneValidation == "valid" &&
                 uniqueEmailValidation == "valid")
             {
-
                 return "valid";
-
             }
 
             string errorMessage = "Please correct the following errors:\n\n";
 
             if (fullNameValidation != "valid")
             {
-                errorMessage += "Full Name:" + fullNameValidation + "\n";
+                errorMessage += "Full Name: " + fullNameValidation + "\n";
             }
             if (emailValidation != "valid")
             {
