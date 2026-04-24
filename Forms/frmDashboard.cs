@@ -32,6 +32,7 @@ namespace DoggyDaycare.Forms
             dgvSmallServices.Columns["Id"].Visible = false;
             dgvSmallServices.Columns["Status"].Visible = false;
             dgvSmallServices.Columns["BreedType"].Visible = false;
+            dgvSmallServices.Columns["Display"].Visible = false;
             dgvSmallServices.Columns["MaxCapacityPerSlot"].Visible = false;
 
             dgvSmallServices.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -47,6 +48,7 @@ namespace DoggyDaycare.Forms
             dgvMediumServices.Columns["Id"].Visible = false;
             dgvMediumServices.Columns["Status"].Visible = false;
             dgvMediumServices.Columns["BreedType"].Visible = false;
+            dgvMediumServices.Columns["Display"].Visible = false;
             dgvMediumServices.Columns["MaxCapacityPerSlot"].Visible = false;
 
             dgvMediumServices.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -62,6 +64,7 @@ namespace DoggyDaycare.Forms
             dgvBigServices.Columns["Id"].Visible = false;
             dgvBigServices.Columns["Status"].Visible = false;
             dgvBigServices.Columns["BreedType"].Visible = false;
+            dgvBigServices.Columns["Display"].Visible = false;
             dgvBigServices.Columns["MaxCapacityPerSlot"].Visible = false;
 
             dgvBigServices.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

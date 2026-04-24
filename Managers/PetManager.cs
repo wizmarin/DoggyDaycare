@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Data;
 using DoggyDaycare.Data.Mappers;
 using DoggyDaycare.Data.Repositories;
 using DoggyDaycare.Exceptions;
@@ -24,6 +18,13 @@ namespace DoggyDaycare.Managers
             return pets;
         }
 
+        internal static Pet GetPetById(int id)
+        {
+            OracleDataReader reader = PetRepo.GetById(id);
+            Pet pet = OracleDataReaderMapper.MapToObject<Pet>(reader);
+            return pet;
+        }
+
         internal static List<Pet> GetPetsByOwnerId(int ownerId)
         {
             OracleDataReader reader = PetRepo.GetByOwnerId(ownerId);
@@ -37,32 +38,30 @@ namespace DoggyDaycare.Managers
             {
                 throw new NoSelectionException("No pet selected. Please select a pet to update.");
             }
-            else
-            {
-                var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
-                var loadOption = "Hide";
 
-                mainForm.OpenChildForm(new frmUpdatePet(pet), loadOption);
-            }
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var loadOption = "Hide";
+
+            mainForm.OpenChildForm(new frmUpdatePet(pet), loadOption);
         }
 
-        internal static void RegisterPet(Customer owner, string name, string breedType,int age, string sex, DateTime vetCheckUp, string feedingNotes, string medicalConditions, string socialisationLevel, string knownTriggers, string behaviouralNotes, string additionalNotes)
+        internal static void RegisterPet(Customer owner, string name, string breedType, int age, string sex, DateTime vetCheckUp, string feedingNotes, string medicalConditions, string socialisationLevel, string knownTriggers, string behaviouralNotes, string additionalNotes)
         {
             string message = IsValidInput(name, age, vetCheckUp, feedingNotes, medicalConditions, knownTriggers, behaviouralNotes, additionalNotes); ;
 
-            if (message != "valid") 
+            if (message != "valid")
             {
                 MessageBox.Show(message, "Input Not Valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            Pet pet = new Pet (owner.Id, name, breedType, age, sex, vetCheckUp, feedingNotes, medicalConditions,
+            Pet pet = new Pet(owner.Id, name, breedType, age, sex, vetCheckUp, feedingNotes, medicalConditions,
                 socialisationLevel, knownTriggers, behaviouralNotes, additionalNotes);
 
             message = $"You are about to register the following pet:\n\n{pet.ToString()}\n\nWould you like to proceed?";
 
             DialogResult result = MessageBox.Show(message, "Confirm Registration", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-        
+
             var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
             var loadOption = "Close";
 
@@ -70,16 +69,15 @@ namespace DoggyDaycare.Managers
             {
                 mainForm.OpenChildForm(new frmPets(), loadOption);
             }
-            else if (result == DialogResult.No) 
+
+            if (result == DialogResult.No)
             {
                 return;
             }
-            else
-            {
-                PetRepo.Insert(pet);
-                MessageBox.Show("Pet has been registered successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                mainForm.OpenChildForm(new frmPets(), loadOption);
-            }
+
+            PetRepo.Insert(pet);
+            MessageBox.Show("Pet has been registered successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            mainForm.OpenChildForm(new frmPets(), loadOption);
         }
 
         internal static void UpdatePet(Pet pet, Customer owner, string name, string breedType, int age, string sex, DateTime vetCheckUp, string feedingNotes, string medicalConditions, string socialisationLevel, string knownTriggers, string behaviouralNotes, string additionalNotes)
@@ -167,64 +165,56 @@ namespace DoggyDaycare.Managers
                 mainForm.OpenChildForm(new frmPets(), loadOption);
                 return;
             }
-            else if (result == DialogResult.No)
+
+            if (result == DialogResult.No)
             {
                 return;
             }
-            else
-            {
-                pet.OwnerId = owner.Id;
-                pet.Name = name;
-                pet.BreedType = breedType;
-                pet.Age = age;
-                pet.Sex = sex;
-                pet.VetCheckUp = vetCheckUp;
-                pet.FeedingNotes = feedingNotes;
-                pet.MedicalConditions = medicalConditions;
-                pet.SocialisationLevel = socialisationLevel;
-                pet.KnownTriggers = knownTriggers;
-                pet.BehaviouralNotes = behaviouralNotes;
-                pet.AdditionalNotes = additionalNotes;
 
-                PetRepo.Update(pet);
+            pet.OwnerId = owner.Id;
+            pet.Name = name;
+            pet.BreedType = breedType;
+            pet.Age = age;
+            pet.Sex = sex;
+            pet.VetCheckUp = vetCheckUp;
+            pet.FeedingNotes = feedingNotes;
+            pet.MedicalConditions = medicalConditions;
+            pet.SocialisationLevel = socialisationLevel;
+            pet.KnownTriggers = knownTriggers;
+            pet.BehaviouralNotes = behaviouralNotes;
+            pet.AdditionalNotes = additionalNotes;
 
-                MessageBox.Show("Pet has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                petsForm.UpdateDataSource(pet, "update");
-
-                mainForm.OpenChildForm(petsForm, loadOption);
-            }
+            PetRepo.Update(pet);
+            MessageBox.Show("Pet has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            petsForm.UpdateDataSource(pet, "update");
+            mainForm.OpenChildForm(petsForm, loadOption);
         }
 
         internal static void DeactivatePet(Pet pet)
         {
-            // TODO: Implement a check to see if there are any active or future bookings for this pet before deactivating it. If there are, throw an exception.
-
             if (pet == null)
             {
                 throw new NoSelectionException("No pet selected. Please select a pet to deactivate.");
             }
-            else
+
+            List<Booking> bookings = BookingManager.GetActiveBookingsByPetId(pet.Id);
+
+            if (bookings.Count > 0)
             {
-                string message = $"You are about to deactivate the pet:\n\n{pet.ToString()}\n\nThis action cannot be undone.";
-            
-                DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Cancel)
-                {
-                    throw new DeactivationAbortedException();
-                }
-                else
-                {
-                    PetRepo.Deactivate(pet.Id);
-                    MessageBox.Show("Pet has been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                throw new InvalidOperationException("Cannot deactivate pet with active or future bookings.");
             }
-        }
 
-        internal static void DeactivatePets()
-        {
+            string message = $"You are about to deactivate the pet:\n\n{pet.ToString()}\n\nThis action cannot be undone.";
 
+            DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Cancel)
+            {
+                throw new DeactivationAbortedException();
+            }
+
+            PetRepo.Deactivate(pet.Id);
+            MessageBox.Show("Pet has been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private static string IsValidInput(string name, int age, DateTime vetCheckUp, string feedingNotes, string medicalConditions, string knownTriggers, string behaviouralNotes, string additionalNotes)

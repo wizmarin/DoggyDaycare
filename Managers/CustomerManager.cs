@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Data;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using DoggyDaycare.Data.Mappers;
 using DoggyDaycare.Data.Repositories;
 using DoggyDaycare.Exceptions;
@@ -37,13 +32,11 @@ namespace DoggyDaycare.Managers
             {
                 throw new NoSelectionException("No customer selected. Please select a customer to update.");
             }
-            else
-            {
-                var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
-                var loadOption = "Hide";
 
-                mainForm.OpenChildForm(new frmUpdateCustomer(customer), loadOption);
-            }
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var loadOption = "Hide";
+
+            mainForm.OpenChildForm(new frmUpdateCustomer(customer), loadOption);
         }
 
         internal static void RegisterCustomer(string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
@@ -82,18 +75,15 @@ namespace DoggyDaycare.Managers
 
                 return;
             }
-            else if (result == DialogResult.No)
+
+            if (result == DialogResult.No)
             {
                 return;
             }
-            else
-            {
-                CustomerRepo.Insert(newCustomer);
 
-                MessageBox.Show("Customer has been registered successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                mainForm.OpenChildForm(new frmCustomers(), loadOption);
-            }
+            CustomerRepo.Insert(newCustomer);
+            MessageBox.Show("Customer has been registered successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            mainForm.OpenChildForm(new frmCustomers(), loadOption);
         }
 
         internal static void UpdateCustomer(Customer customer, string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
@@ -146,64 +136,60 @@ namespace DoggyDaycare.Managers
                 mainForm.OpenChildForm(customersForm, loadOption);
                 return;
             }
-            else if (result == DialogResult.No)
+
+            if (result == DialogResult.No)
             {
                 return;
             }
-            else
-            {
-                customer.FullName = fullName;
-                customer.Email = email;
-                customer.PhoneNumber = phone;
-                customer.EmergencyContactName = emergencyContactName;
-                customer.EmergencyContactPhone = emergencyContactPhone;
 
-                CustomerRepo.Update(customer);
+            customer.FullName = fullName;
+            customer.Email = email;
+            customer.PhoneNumber = phone;
+            customer.EmergencyContactName = emergencyContactName;
+            customer.EmergencyContactPhone = emergencyContactPhone;
 
-                MessageBox.Show("Customer has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                customersForm.UpdateDataSource(customer, "update");
-
-                mainForm.OpenChildForm(customersForm, loadOption);
-            }
+            CustomerRepo.Update(customer);
+            MessageBox.Show("Customer has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            customersForm.UpdateDataSource(customer, "update");
+            mainForm.OpenChildForm(customersForm, loadOption);
         }
 
         internal static void DeactivateCustomer(Customer customer)
         {
-            // TODO: Implement check for active reservations for assigned pets and display message to user if there are any active reservations, preventing deactivation of customer until all active reservations are resolved
-
             if (customer == null)
             {
                 throw new NoSelectionException("No customer selected. Please select a customer to deactivate.");
             }
-            else
+
+            List<Booking> bookings = BookingManager.GetActiveBookingsByCustomerId(customer.Id);
+            if (bookings.Count > 0)
             {
-                List<Pet> pets = PetManager.GetPetsByOwnerId(customer.Id);
-
-                string message = $"You are about to deactivate customer:\n\n{customer.ToString()}\n\nFollowing pets are going to be deactivated as well:\n\n";
-
-                message += string.Join(", ", pets.Select(p => p.Name));
-
-                message += ".\n\nThis action cannot be undone.";
-
-                DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Cancel)
-                {
-                    throw new DeactivationAbortedException();
-                }
-                else 
-                {
-                    CustomerRepo.Deactivate(customer.Id);
-
-                    foreach (Pet pet in pets) 
-                    {
-                        PetRepo.Deactivate(pet.Id);
-                    }
-
-                    MessageBox.Show("Customer and all assigned pets have been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                throw new InvalidOperationException("Cannot deactivate pet with active or future bookings.");
             }
+
+            List<Pet> pets = PetManager.GetPetsByOwnerId(customer.Id);
+
+            string message = $"You are about to deactivate customer:\n\n{customer.ToString()}\n\nFollowing pets are going to be deactivated as well:\n\n";
+
+            message += string.Join(", ", pets.Select(p => p.Name));
+
+            message += ".\n\nThis action cannot be undone.";
+
+            DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Cancel)
+            {
+                throw new DeactivationAbortedException();
+            }
+
+            CustomerRepo.Deactivate(customer.Id);
+
+            foreach (Pet pet in pets)
+            {
+                PetRepo.Deactivate(pet.Id);
+            }
+
+            MessageBox.Show("Customer and all assigned pets have been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private static string IsValidInput(Customer customer, string fullName, string email, string phone, string? emergencyContactName, string? emergencyContactPhone)
@@ -234,26 +220,32 @@ namespace DoggyDaycare.Managers
             {
                 errorMessage += "Full Name: " + fullNameValidation + "\n";
             }
+
             if (emailValidation != "valid")
             {
                 errorMessage += "Email: " + emailValidation + "\n";
             }
+
             if (uniqueEmailValidation != "valid")
             {
                 errorMessage += "Email: " + uniqueEmailValidation + "\n";
             }
+
             if (phoneValidation != "valid")
             {
                 errorMessage += "Phone: " + phoneValidation + "\n";
             }
+
             if (uniquePhoneValidation != "valid")
             {
                 errorMessage += "Phone: " + uniquePhoneValidation + "\n";
             }
+
             if (emergencyContactNameValidation != "valid")
             {
                 errorMessage += "Emergency Contact Name: " + emergencyContactNameValidation + "\n";
             }
+
             if (emergencyContactPhoneValidation != "valid")
             {
                 errorMessage += "Emergency Contact Phone: " + emergencyContactPhoneValidation + "\n";
@@ -366,7 +358,7 @@ namespace DoggyDaycare.Managers
             OracleDataReader reader = CustomerRepo.GetByPhone(phone);
             List<Customer> customers = OracleDataReaderMapper.MapToList<Customer>(reader);
 
-            if (customer == null && customers.Count > 0) 
+            if (customer == null && customers.Count > 0)
             {
                 return "Phone number already exists. Please enter a unique phone number.";
             }
@@ -384,7 +376,7 @@ namespace DoggyDaycare.Managers
             OracleDataReader reader = CustomerRepo.GetByEmail(email);
             List<Customer> customers = OracleDataReaderMapper.MapToList<Customer>(reader);
 
-            if (customer == null && customers.Count > 0) 
+            if (customer == null && customers.Count > 0)
             {
                 return "Email already exists. Please enter a unique email.";
             }
@@ -398,5 +390,5 @@ namespace DoggyDaycare.Managers
         }
 
     }
-}           
-      
+}
+

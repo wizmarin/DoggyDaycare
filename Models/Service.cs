@@ -22,6 +22,8 @@ namespace DoggyDaycare.Models
         [ColumnName("MAX_CAPACITY_PER_SLOT")]
         public int MaxCapacityPerSlot { get; set; }
 
+        public string Display => $"{Name} {(BreedType)}";
+
         public Service() { }
 
         public Service(string name, 

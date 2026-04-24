@@ -30,18 +30,20 @@
         {
             btnAddBookingLabel = new Button();
             tlpFormContent = new TableLayoutPanel();
+            lblCheckOutTime = new Label();
+            lblCheckInTime = new Label();
             lblCustomer = new Label();
             lblPet = new Label();
             lblService = new Label();
-            lblCheckIn = new Label();
-            lblCheckOut = new Label();
+            lblCheckInDate = new Label();
+            lblCheckOutDate = new Label();
             cmbCustomer = new ComboBox();
             cmbPet = new ComboBox();
             cmbService = new ComboBox();
-            dtpCheckIn = new DateTimePicker();
-            dtpCheckOut = new DateTimePicker();
-            btnRegisterCustomer = new Button();
-            btnRegisterPet = new Button();
+            dtpCheckInDate = new DateTimePicker();
+            dtpCheckOutDate = new DateTimePicker();
+            dtpCheckOutTime = new DateTimePicker();
+            dtpCheckInTime = new DateTimePicker();
             btnAddBooking = new Button();
             tlpFormContent.SuspendLayout();
             SuspendLayout();
@@ -69,18 +71,20 @@
             tlpFormContent.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tlpFormContent.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             tlpFormContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlpFormContent.Controls.Add(lblCheckOutTime, 2, 8);
+            tlpFormContent.Controls.Add(lblCheckInTime, 2, 6);
             tlpFormContent.Controls.Add(lblCustomer, 0, 0);
             tlpFormContent.Controls.Add(lblPet, 0, 2);
             tlpFormContent.Controls.Add(lblService, 0, 4);
-            tlpFormContent.Controls.Add(lblCheckIn, 0, 6);
-            tlpFormContent.Controls.Add(lblCheckOut, 0, 8);
+            tlpFormContent.Controls.Add(lblCheckInDate, 0, 6);
+            tlpFormContent.Controls.Add(lblCheckOutDate, 0, 8);
             tlpFormContent.Controls.Add(cmbCustomer, 0, 1);
             tlpFormContent.Controls.Add(cmbPet, 0, 3);
             tlpFormContent.Controls.Add(cmbService, 0, 5);
-            tlpFormContent.Controls.Add(dtpCheckIn, 0, 7);
-            tlpFormContent.Controls.Add(dtpCheckOut, 0, 9);
-            tlpFormContent.Controls.Add(btnRegisterCustomer, 2, 1);
-            tlpFormContent.Controls.Add(btnRegisterPet, 2, 3);
+            tlpFormContent.Controls.Add(dtpCheckInDate, 0, 7);
+            tlpFormContent.Controls.Add(dtpCheckOutDate, 0, 9);
+            tlpFormContent.Controls.Add(dtpCheckOutTime, 2, 9);
+            tlpFormContent.Controls.Add(dtpCheckInTime, 2, 7);
             tlpFormContent.Dock = DockStyle.Top;
             tlpFormContent.ForeColor = Color.FromArgb(34, 24, 28);
             tlpFormContent.Location = new Point(0, 40);
@@ -100,6 +104,28 @@
             tlpFormContent.Size = new Size(1026, 287);
             tlpFormContent.TabIndex = 2;
             // 
+            // lblCheckOutTime
+            // 
+            lblCheckOutTime.AutoSize = true;
+            lblCheckOutTime.Font = new Font("Gadugi", 9.75F);
+            lblCheckOutTime.Location = new Point(328, 228);
+            lblCheckOutTime.Margin = new Padding(3, 5, 3, 0);
+            lblCheckOutTime.Name = "lblCheckOutTime";
+            lblCheckOutTime.Size = new Size(102, 16);
+            lblCheckOutTime.TabIndex = 13;
+            lblCheckOutTime.Text = "Check-Out Time:";
+            // 
+            // lblCheckInTime
+            // 
+            lblCheckInTime.AutoSize = true;
+            lblCheckInTime.Font = new Font("Gadugi", 9.75F);
+            lblCheckInTime.Location = new Point(328, 172);
+            lblCheckInTime.Margin = new Padding(3, 5, 3, 0);
+            lblCheckInTime.Name = "lblCheckInTime";
+            lblCheckInTime.Size = new Size(91, 16);
+            lblCheckInTime.TabIndex = 12;
+            lblCheckInTime.Text = "Check-In Time:";
+            // 
             // lblCustomer
             // 
             lblCustomer.AutoSize = true;
@@ -117,7 +143,7 @@
             lblPet.AutoSize = true;
             lblPet.Dock = DockStyle.Fill;
             lblPet.Font = new Font("Gadugi", 9.75F);
-            lblPet.Location = new Point(8, 67);
+            lblPet.Location = new Point(8, 64);
             lblPet.Margin = new Padding(3, 5, 3, 0);
             lblPet.Name = "lblPet";
             lblPet.Size = new Size(294, 16);
@@ -129,36 +155,36 @@
             lblService.AutoSize = true;
             lblService.Dock = DockStyle.Fill;
             lblService.Font = new Font("Gadugi", 9.75F);
-            lblService.Location = new Point(8, 124);
+            lblService.Location = new Point(8, 118);
             lblService.Margin = new Padding(3, 5, 3, 0);
             lblService.Name = "lblService";
             lblService.Size = new Size(294, 16);
             lblService.TabIndex = 2;
             lblService.Text = "Service:";
             // 
-            // lblCheckIn
+            // lblCheckInDate
             // 
-            lblCheckIn.AutoSize = true;
-            lblCheckIn.Dock = DockStyle.Fill;
-            lblCheckIn.Font = new Font("Gadugi", 9.75F);
-            lblCheckIn.Location = new Point(8, 178);
-            lblCheckIn.Margin = new Padding(3, 5, 3, 0);
-            lblCheckIn.Name = "lblCheckIn";
-            lblCheckIn.Size = new Size(294, 16);
-            lblCheckIn.TabIndex = 3;
-            lblCheckIn.Text = "Check-In";
+            lblCheckInDate.AutoSize = true;
+            lblCheckInDate.Dock = DockStyle.Fill;
+            lblCheckInDate.Font = new Font("Gadugi", 9.75F);
+            lblCheckInDate.Location = new Point(8, 172);
+            lblCheckInDate.Margin = new Padding(3, 5, 3, 0);
+            lblCheckInDate.Name = "lblCheckInDate";
+            lblCheckInDate.Size = new Size(294, 16);
+            lblCheckInDate.TabIndex = 3;
+            lblCheckInDate.Text = "Check-In Date:";
             // 
-            // lblCheckOut
+            // lblCheckOutDate
             // 
-            lblCheckOut.AutoSize = true;
-            lblCheckOut.Dock = DockStyle.Fill;
-            lblCheckOut.Font = new Font("Gadugi", 9.75F);
-            lblCheckOut.Location = new Point(8, 234);
-            lblCheckOut.Margin = new Padding(3, 5, 3, 0);
-            lblCheckOut.Name = "lblCheckOut";
-            lblCheckOut.Size = new Size(294, 16);
-            lblCheckOut.TabIndex = 4;
-            lblCheckOut.Text = "Check-Out";
+            lblCheckOutDate.AutoSize = true;
+            lblCheckOutDate.Dock = DockStyle.Fill;
+            lblCheckOutDate.Font = new Font("Gadugi", 9.75F);
+            lblCheckOutDate.Location = new Point(8, 228);
+            lblCheckOutDate.Margin = new Padding(3, 5, 3, 0);
+            lblCheckOutDate.Name = "lblCheckOutDate";
+            lblCheckOutDate.Size = new Size(294, 16);
+            lblCheckOutDate.TabIndex = 4;
+            lblCheckOutDate.Text = "Check-Out Date:";
             // 
             // cmbCustomer
             // 
@@ -169,78 +195,87 @@
             cmbCustomer.Name = "cmbCustomer";
             cmbCustomer.Size = new Size(294, 27);
             cmbCustomer.TabIndex = 5;
+            cmbCustomer.SelectionChangeCommitted += cmbCustomer_SelectionChangeCommitted;
+            cmbCustomer.TextChanged += cmbCustomer_TextChanged;
             // 
             // cmbPet
             // 
             cmbPet.Dock = DockStyle.Fill;
+            cmbPet.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPet.Font = new Font("Gadugi", 12F);
             cmbPet.FormattingEnabled = true;
-            cmbPet.Location = new Point(8, 86);
+            cmbPet.Location = new Point(8, 83);
             cmbPet.Name = "cmbPet";
             cmbPet.Size = new Size(294, 27);
             cmbPet.TabIndex = 6;
+            cmbPet.SelectedIndexChanged += cmbPet_SelectedIndexChanged;
             // 
             // cmbService
             // 
             cmbService.Dock = DockStyle.Fill;
+            cmbService.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbService.Font = new Font("Gadugi", 12F);
             cmbService.FormattingEnabled = true;
-            cmbService.Location = new Point(8, 143);
+            cmbService.Location = new Point(8, 137);
             cmbService.Name = "cmbService";
             cmbService.Size = new Size(294, 27);
             cmbService.TabIndex = 7;
             // 
-            // dtpCheckIn
+            // dtpCheckInDate
             // 
-            dtpCheckIn.Dock = DockStyle.Fill;
-            dtpCheckIn.Font = new Font("Gadugi", 12F);
-            dtpCheckIn.Location = new Point(8, 197);
-            dtpCheckIn.Name = "dtpCheckIn";
-            dtpCheckIn.Size = new Size(294, 29);
-            dtpCheckIn.TabIndex = 8;
+            dtpCheckInDate.Dock = DockStyle.Fill;
+            dtpCheckInDate.Font = new Font("Gadugi", 12F);
+            dtpCheckInDate.Location = new Point(8, 191);
+            dtpCheckInDate.Name = "dtpCheckInDate";
+            dtpCheckInDate.Size = new Size(294, 29);
+            dtpCheckInDate.TabIndex = 8;
+            dtpCheckInDate.ValueChanged += dtpCheckInDate_ValueChanged;
             // 
-            // dtpCheckOut
+            // dtpCheckOutDate
             // 
-            dtpCheckOut.Dock = DockStyle.Fill;
-            dtpCheckOut.Font = new Font("Gadugi", 12F);
-            dtpCheckOut.Location = new Point(8, 253);
-            dtpCheckOut.Name = "dtpCheckOut";
-            dtpCheckOut.Size = new Size(294, 29);
-            dtpCheckOut.TabIndex = 9;
+            dtpCheckOutDate.Dock = DockStyle.Fill;
+            dtpCheckOutDate.Font = new Font("Gadugi", 12F);
+            dtpCheckOutDate.Location = new Point(8, 247);
+            dtpCheckOutDate.Name = "dtpCheckOutDate";
+            dtpCheckOutDate.Size = new Size(294, 29);
+            dtpCheckOutDate.TabIndex = 9;
+            dtpCheckOutDate.ValueChanged += dtpCheckOutDate_ValueChanged;
             // 
-            // btnRegisterCustomer
+            // dtpCheckOutTime
             // 
-            btnRegisterCustomer.Dock = DockStyle.Fill;
-            btnRegisterCustomer.Font = new Font("Century Gothic", 12F);
-            btnRegisterCustomer.Location = new Point(328, 29);
-            btnRegisterCustomer.Name = "btnRegisterCustomer";
-            btnRegisterCustomer.Size = new Size(244, 30);
-            btnRegisterCustomer.TabIndex = 10;
-            btnRegisterCustomer.Text = "Register Customer";
-            btnRegisterCustomer.UseVisualStyleBackColor = true;
+            dtpCheckOutTime.Dock = DockStyle.Fill;
+            dtpCheckOutTime.Font = new Font("Gadugi", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpCheckOutTime.Format = DateTimePickerFormat.Time;
+            dtpCheckOutTime.Location = new Point(328, 247);
+            dtpCheckOutTime.Name = "dtpCheckOutTime";
+            dtpCheckOutTime.ShowUpDown = true;
+            dtpCheckOutTime.Size = new Size(244, 29);
+            dtpCheckOutTime.TabIndex = 14;
             // 
-            // btnRegisterPet
+            // dtpCheckInTime
             // 
-            btnRegisterPet.Dock = DockStyle.Fill;
-            btnRegisterPet.Font = new Font("Century Gothic", 12F);
-            btnRegisterPet.Location = new Point(328, 86);
-            btnRegisterPet.Name = "btnRegisterPet";
-            btnRegisterPet.Size = new Size(244, 30);
-            btnRegisterPet.TabIndex = 11;
-            btnRegisterPet.Text = "Register Pet";
-            btnRegisterPet.UseVisualStyleBackColor = true;
+            dtpCheckInTime.Dock = DockStyle.Fill;
+            dtpCheckInTime.Font = new Font("Gadugi", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpCheckInTime.Format = DateTimePickerFormat.Time;
+            dtpCheckInTime.Location = new Point(328, 191);
+            dtpCheckInTime.Name = "dtpCheckInTime";
+            dtpCheckInTime.ShowUpDown = true;
+            dtpCheckInTime.Size = new Size(244, 29);
+            dtpCheckInTime.TabIndex = 15;
+            dtpCheckInTime.ValueChanged += dtpCheckInTime_ValueChanged;
             // 
             // btnAddBooking
             // 
             btnAddBooking.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnAddBooking.ForeColor = Color.FromArgb(34, 24, 28);
-            btnAddBooking.Location = new Point(8, 335);
+            btnAddBooking.Location = new Point(172, 330);
             btnAddBooking.Margin = new Padding(50, 5, 50, 5);
             btnAddBooking.Name = "btnAddBooking";
             btnAddBooking.Size = new Size(294, 30);
             btnAddBooking.TabIndex = 10;
             btnAddBooking.Text = "Add Booking";
             btnAddBooking.UseVisualStyleBackColor = true;
+            btnAddBooking.Click += btnAddBooking_Click;
             // 
             // frmAddBooking
             // 
@@ -254,6 +289,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmAddBooking";
             Text = "frmAddBooking";
+            Load += frmAddBooking_Load;
             tlpFormContent.ResumeLayout(false);
             tlpFormContent.PerformLayout();
             ResumeLayout(false);
@@ -266,15 +302,17 @@
         private Label lblCustomer;
         private Label lblPet;
         private Label lblService;
-        private Label lblCheckIn;
-        private Label lblCheckOut;
+        private Label lblCheckInDate;
+        private Label lblCheckOutDate;
         private ComboBox cmbCustomer;
         private ComboBox cmbPet;
         private ComboBox cmbService;
-        private DateTimePicker dtpCheckIn;
-        private DateTimePicker dtpCheckOut;
-        private Button btnRegisterCustomer;
-        private Button btnRegisterPet;
+        private DateTimePicker dtpCheckInDate;
+        private DateTimePicker dtpCheckOutDate;
         private Button btnAddBooking;
+        private Label lblCheckOutTime;
+        private Label lblCheckInTime;
+        private DateTimePicker dtpCheckOutTime;
+        private DateTimePicker dtpCheckInTime;
     }
 }

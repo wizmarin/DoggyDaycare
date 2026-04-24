@@ -94,6 +94,10 @@ namespace DoggyDaycare.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (DeactivationAbortedException ex)
             {
                 MessageBox.Show(ex.Message, "Deactivation Aborted", MessageBoxButtons.OK, MessageBoxIcon.Information);

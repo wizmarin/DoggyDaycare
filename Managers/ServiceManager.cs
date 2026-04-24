@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using DoggyDaycare.Data.Mappers;
 using DoggyDaycare.Data.Repositories;
 using DoggyDaycare.Exceptions;
 using DoggyDaycare.Forms;
 using DoggyDaycare.Models;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DoggyDaycare.Managers
 {
@@ -20,6 +15,13 @@ namespace DoggyDaycare.Managers
             DataSet ds = ServiceRepo.GetAll();
             List<Service> services = DataSetMapper.MapToList<Service>(ds);
             return services;
+        }
+
+        internal static Service GetServiceById(int id)
+        {
+            OracleDataReader reader = ServiceRepo.GetById(id);
+            Service service = OracleDataReaderMapper.MapToObject<Service>(reader);
+            return service;
         }
 
         internal static List<Service> GetSmallBreed()
@@ -35,7 +37,7 @@ namespace DoggyDaycare.Managers
                     result.Add(service);
                 }
             }
-            
+
             return result;
         }
 
@@ -52,7 +54,7 @@ namespace DoggyDaycare.Managers
                     result.Add(service);
                 }
             }
-            
+
             return result;
         }
 
@@ -79,13 +81,11 @@ namespace DoggyDaycare.Managers
             {
                 throw new NoSelectionException("No service selected. Please select a service to update.");
             }
-            else
-            {
-                var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
-                var loadOption = "Hide";
 
-                mainForm.OpenChildForm(new frmUpdateService(service), loadOption);
-            }
+            var mainForm = Application.OpenForms.OfType<frmMain>().FirstOrDefault();
+            var loadOption = "Hide";
+
+            mainForm.OpenChildForm(new frmUpdateService(service), loadOption);
         }
 
         internal static void AddService(string name, string breedType, float pricePerHour, int maxCapacityPerSlot)
@@ -112,18 +112,15 @@ namespace DoggyDaycare.Managers
                 mainForm.OpenChildForm(new frmServices(), loadOption);
                 return;
             }
-            else if (result == DialogResult.No)
+
+            if (result == DialogResult.No)
             {
                 return;
             }
-            else
-            {
-                ServiceRepo.Insert(newService);
 
-                MessageBox.Show("Service has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                mainForm.OpenChildForm(new frmServices(), loadOption);
-            }
+            ServiceRepo.Insert(newService);
+            MessageBox.Show("Service has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            mainForm.OpenChildForm(new frmServices(), loadOption);
         }
 
         internal static void UpdateService(Service service, string name, string breedType, float pricePerHour, int maxCapacityPerSlot)
@@ -171,51 +168,47 @@ namespace DoggyDaycare.Managers
                 mainForm.OpenChildForm(servicesForm, loadOption);
                 return;
             }
-            else if (result == DialogResult.No)
+
+            if (result == DialogResult.No)
             {
                 return;
             }
-            else
-            {
-                service.Name = name;
-                service.BreedType = breedType;
-                service.PricePerHour = pricePerHour;
-                service.MaxCapacityPerSlot = maxCapacityPerSlot;
 
-                ServiceRepo.Update(service);
+            service.Name = name;
+            service.BreedType = breedType;
+            service.PricePerHour = pricePerHour;
+            service.MaxCapacityPerSlot = maxCapacityPerSlot;
 
-                MessageBox.Show("Service has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                servicesForm.UpdateDataSource(service, "update");
-
-                mainForm.OpenChildForm(servicesForm, loadOption);
-            }
+            ServiceRepo.Update(service);
+            MessageBox.Show("Service has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            servicesForm.UpdateDataSource(service, "update");
+            mainForm.OpenChildForm(servicesForm, loadOption);
         }
 
         internal static void DeactivateService(Service service)
         {
-            // TODO: Implement a check to see if there are any active or future bookings for this service before deactivating it. If there are, throw an exception.
-
-            if (service == null) 
+            if (service == null)
             {
                 throw new NoSelectionException("No service selected. Please select a service to deactivate.");
             }
-            else
+
+            List<Booking> bookings = BookingManager.GetActiveBookingsByServiceId(service.Id);
+            if (bookings.Count > 0)
             {
-                string message = $"You are about to deactivate service:\n\n{service.ToString()}\n\nThis action cannot be undone.";
-                
-                DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                
-                if (result == DialogResult.Cancel)
-                {
-                    throw new DeactivationAbortedException();
-                }
-                else
-                {
-                    ServiceRepo.Deactivate(service.Id);
-                    MessageBox.Show("Service has been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                throw new InvalidOperationException("Cannot deactivate service with active or future bookings.");
             }
+
+            string message = $"You are about to deactivate service:\n\n{service.ToString()}\n\nThis action cannot be undone.";
+
+            DialogResult result = MessageBox.Show(message, "Confirm Deactivation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Cancel)
+            {
+                throw new DeactivationAbortedException();
+            }
+
+            ServiceRepo.Deactivate(service.Id);
+            MessageBox.Show("Service has been deactivated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private static string IsValidInput(string name, float price, int capacity)
@@ -228,17 +221,19 @@ namespace DoggyDaycare.Managers
             {
                 return "valid";
             }
-            
+
             string errorMessage = "Please correct the following errors:\n\n";
 
             if (nameValidation != "valid")
             {
                 errorMessage += "Service Name: " + nameValidation + "\n";
             }
+
             if (priceValidation != "valid")
             {
                 errorMessage += "Price: " + priceValidation + "\n";
             }
+
             if (capacityValidation != "valid")
             {
                 errorMessage += "Max Capacity: " + capacityValidation + "\n";
@@ -253,10 +248,8 @@ namespace DoggyDaycare.Managers
             {
                 return "Service name cannot be empty.";
             }
-            else
-            {
-                return "valid";
-            }
+
+            return "valid";
         }
 
         private static string IsValidPrice(float price)
@@ -265,10 +258,8 @@ namespace DoggyDaycare.Managers
             {
                 return "Price per hour must be greater than zero.";
             }
-            else
-            {
-                return "valid";
-            }
+
+            return "valid";
         }
 
         private static string IsValidCapacity(int capacity)
@@ -277,10 +268,8 @@ namespace DoggyDaycare.Managers
             {
                 return "Max capacity per slot must be greater than zero.";
             }
-            else
-            {
-                return "valid";
-            }
+
+            return "valid";
         }
 
     }
